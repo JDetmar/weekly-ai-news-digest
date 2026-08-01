@@ -30,6 +30,61 @@ tools:
     toolsets: [default]
   bash: true
 
+# The agent sandbox has NO authenticated gh CLI - no GH_TOKEN or GITHUB_TOKEN is
+# set inside it, so `gh` there exits 4. These steps run on the runner, where the
+# token does exist, and leave compact JSON for the agent to read. Every piece of
+# GitHub data this workflow needs must be fetched here, not in the prompt.
+steps:
+  - name: Pre-fetch digest run usage data
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+    run: |
+      set -uo pipefail
+      mkdir -p /tmp/gh-aw/data
+
+      # Most recent digest run, regardless of conclusion: a run that failed at the
+      # pull request step still consumed real credits and is worth reporting.
+      gh run list --repo "$REPO" \
+        --workflow weekly-news-digest.lock.yml \
+        --limit 1 --json databaseId,number,conclusion,url,headSha,createdAt \
+        --jq '.[0] // empty' > /tmp/gh-aw/data/run.json
+
+      if [ ! -s /tmp/gh-aw/data/run.json ]; then
+        echo "no digest runs found"
+        exit 0
+      fi
+
+      RUN_ID=$(jq -r '.databaseId' /tmp/gh-aw/data/run.json)
+      echo "digest run: $RUN_ID"
+
+      # Usage artifact. Absent on old runs (artifacts expire) - not an error.
+      if gh run download "$RUN_ID" --repo "$REPO" \
+           --name usage --dir /tmp/gh-aw/data/usage 2>&1; then
+        find /tmp/gh-aw/data/usage -type f | sort
+      else
+        echo "no usage artifact for run $RUN_ID"
+      fi
+
+      # Has this run already been reported? The schedule fires daily whether or
+      # not the digest ran, so without this the same run is re-reported forever.
+      gh api "repos/$REPO/issues/comments?per_page=100" \
+        --jq "[.[] | select(.body | contains(\"cost-tracker:run-$RUN_ID\"))] | length" \
+        > /tmp/gh-aw/data/already_reported_comments.txt 2>/dev/null || echo 0 > /tmp/gh-aw/data/already_reported_comments.txt
+      gh search issues --repo "$REPO" --match body \
+        "cost-tracker:run-$RUN_ID" --state all --limit 5 --json number \
+        --jq 'length' > /tmp/gh-aw/data/already_reported_issues.txt 2>/dev/null || echo 0 > /tmp/gh-aw/data/already_reported_issues.txt
+
+      # Pull request to comment on, if the digest produced one.
+      gh api "repos/$REPO/actions/runs/$RUN_ID" \
+        --jq '.pull_requests[0].number // empty' > /tmp/gh-aw/data/pr.txt 2>/dev/null || : > /tmp/gh-aw/data/pr.txt
+      gh pr list --repo "$REPO" --label digest --state all --limit 1 \
+        --json number,createdAt,mergedAt --jq '.[0] // empty' \
+        > /tmp/gh-aw/data/pr_fallback.json 2>/dev/null || : > /tmp/gh-aw/data/pr_fallback.json
+
+      echo "--- prefetched ---"
+      find /tmp/gh-aw/data -type f | sort
+
 timeout-minutes: 10
 
 ---
@@ -44,51 +99,49 @@ Your job is to find the most recent digest run, read the token usage data gh-aw'
 > **Why this runs on a schedule rather than on `workflow_run`.**
 > gh-aw compiles a fixed activation guard for `workflow_run` triggers that includes `!(github.event.workflow_run.repository.fork)`.
 > This repository is a fork, so that guard never passes and every job is skipped.
-> A schedule sidesteps it. The cost is that this reports on the previous run rather than firing the moment one finishes, which is why Step 0 has to find the run itself and Step 5 has to avoid reporting the same run twice.
+> A schedule sidesteps it. The cost is that this reports on the previous run rather than firing the moment one finishes, which is why the pre-fetch has to find the run itself and Step 4 has to avoid reporting the same run twice.
 
-## Step 0 — Find the most recent digest run
+> **The `gh` CLI is not authenticated inside your sandbox.**
+> `GH_TOKEN` and `GITHUB_TOKEN` are not set there, so any `gh` command you run will fail with exit code 4.
+> Everything you need has already been fetched for you into `/tmp/gh-aw/data/` by a step that ran on the runner.
+> **Read those files. Do not call `gh`, and do not treat its failure as something to work around.**
 
-```bash
-gh run list --repo ${{ github.repository }} \
-  --workflow weekly-news-digest.lock.yml \
-  --limit 1 --json databaseId,number,conclusion,url,headSha,createdAt
-```
-
-Take the single entry and call its fields `RUN_ID`, `RUN_NUMBER`, `CONCLUSION`, `RUN_URL`, `HEAD_SHA`, `CREATED_AT`.
-Use those names throughout the rest of this workflow wherever a placeholder appears.
-
-Do not filter by conclusion.
-A run that failed at the pull request step still consumed real credits, and that is exactly the kind of spend worth reporting.
-
-**If the list is empty**, produce no output at all and stop.
-
-## Step 1 — Download the usage artifact
-
-gh-aw uploads the token accounting in an artifact named `usage`.
+## Step 0 — Read the pre-fetched run metadata
 
 ```bash
-gh run download RUN_ID \
-  --name usage \
-  --dir /tmp/gh-aw/agent/usage \
-  --repo ${{ github.repository }} 2>&1
-echo "exit: $?"
-find /tmp/gh-aw/agent/usage -type f | sort
+find /tmp/gh-aw/data -type f | sort
+cat /tmp/gh-aw/data/run.json
 ```
 
-**If the download fails**, that run produced no usage data.
+`run.json` describes the most recent digest run:
+
+```json
+{"databaseId":30675195013,"number":7,"conclusion":"failure",
+ "url":"https://github.com/.../actions/runs/30675195013",
+ "headSha":"e8ee15f...","createdAt":"2026-08-01T00:18:08Z"}
+```
+
+Refer to those fields as `RUN_ID`, `RUN_NUMBER`, `CONCLUSION`, `RUN_URL`, `HEAD_SHA`, `CREATED_AT` throughout.
+
+**If `run.json` is missing or empty**, produce no output at all and stop.
+
+## Step 1 — Locate the usage files
+
+The artifact was already downloaded to `/tmp/gh-aw/data/usage/`.
+
+**If that directory does not exist**, the run produced no usage data, or its artifact has expired.
 Produce no output at all and stop.
-Do not report this as an error, and do not retry.
-Artifacts also expire, so an older run legitimately has nothing to download.
+Do not report this as an error.
 
 ## Step 2 — Read the usage files
 
 ```bash
 echo "--- aggregate ---"
-cat /tmp/gh-aw/agent/usage/agent_usage.json 2>/dev/null
+cat /tmp/gh-aw/data/usage/agent_usage.json 2>/dev/null
 echo "--- agent per-request ---"
-cat /tmp/gh-aw/agent/usage/agent/token_usage.jsonl 2>/dev/null
+cat /tmp/gh-aw/data/usage/agent/token_usage.jsonl 2>/dev/null
 echo "--- threat detection per-request ---"
-cat /tmp/gh-aw/agent/usage/detection/token_usage.jsonl 2>/dev/null
+cat /tmp/gh-aw/data/usage/detection/token_usage.jsonl 2>/dev/null
 ```
 
 `agent_usage.json` is a single pre-aggregated object and is the authoritative source for totals.
@@ -187,41 +240,31 @@ Use `< $0.0001` for a non-zero cost below that threshold.
 This is the one thing the schedule gets wrong that a `workflow_run` trigger got right for free.
 The schedule fires every day whether or not a digest ran, so on a day the digest was skipped or failed to start, Step 0 returns **yesterday's** run — which has already been reported.
 
-Every report carries a hidden marker as its **first line**:
-
-```
-<!-- cost-tracker:run-RUN_ID -->
-```
-
-Before posting anything, search for that exact marker:
+Every report carries a hidden marker as its **first line**, `<!-- cost-tracker:run-RUN_ID -->`.
+The pre-fetch already counted existing occurrences of this run's marker:
 
 ```bash
-gh search issues --repo ${{ github.repository }} --match body \
-  "cost-tracker:run-RUN_ID" --state all --limit 5 --json number,title 2>&1
-gh api "repos/${{ github.repository }}/issues/comments?per_page=100" \
-  --jq '[.[] | select(.body | contains("cost-tracker:run-RUN_ID"))] | length'
+cat /tmp/gh-aw/data/already_reported_comments.txt
+cat /tmp/gh-aw/data/already_reported_issues.txt
 ```
 
-**If either finds a match, this run has already been reported. Produce no output at all and stop.**
+**If either file contains a number greater than 0, this run has already been reported. Produce no output at all and stop.**
 Do not post an updated or corrected version. One report per run, permanently.
 
 ## Step 4b — Find the associated pull request
 
 ```bash
-gh api "repos/${{ github.repository }}/actions/runs/RUN_ID" \
-  --jq '.pull_requests[0].number // empty'
+cat /tmp/gh-aw/data/pr.txt
+cat /tmp/gh-aw/data/pr_fallback.json
 ```
 
-The digest workflow creates its pull request from a separate `safe_outputs` job, so this may return nothing even on a healthy run.
-If it does, fall back to the most recent open or recently merged pull request labelled `digest`:
+`pr.txt` holds the pull request number attached to the run, if any.
+The digest creates its pull request from a separate `safe_outputs` job, so this is often empty even on a healthy run.
 
-```bash
-gh pr list --repo ${{ github.repository }} --label digest --state all --limit 1 --json number,mergedAt,createdAt --jq '.[0]'
-```
-
-Only use that fallback if the pull request was created at or after `CREATED_AT` minus one day.
+When it is empty, fall back to `pr_fallback.json`, the most recent pull request labelled `digest`.
+Only use it if its `createdAt` is at or after `CREATED_AT` minus one day.
 An older pull request belongs to a different digest, and commenting this run's cost on it would be wrong.
-If it is older, treat it as "no pull request found".
+If it is older or the file is empty, treat it as "no pull request found".
 
 ## Step 5 — Post the report
 
@@ -287,3 +330,4 @@ Edit this workflow to match your own budget, and recompile.
 - **Never invent a rate.** An unpriced model is reported as unpriced.
 - **Show your arithmetic in the breakdown table** so a reader can check the total without rerunning anything.
 - **No retries.** If a command fails transiently, stop rather than retrying.
+- **Never call `gh`.** It is unauthenticated in your sandbox and will exit 4. Everything you need is already in `/tmp/gh-aw/data/`. If something you need is missing from there, that is a workflow bug to report via `noop`, not something to fetch yourself.
