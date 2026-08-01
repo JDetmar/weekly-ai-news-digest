@@ -68,12 +68,20 @@ steps:
 
       # Has this run already been reported? The schedule fires daily whether or
       # not the digest ran, so without this the same run is re-reported forever.
+      #
+      # Identify prior reports by the run URL they already contain, not by a
+      # marker the agent is asked to emit. An earlier version used a hidden HTML
+      # comment and the agent silently dropped it, which would have produced a
+      # duplicate report every single day.
+      #
+      # Both conditions are required: the run URL alone appears in unrelated
+      # places, and the heading alone matches reports for other runs.
       gh api "repos/$REPO/issues/comments?per_page=100" \
-        --jq "[.[] | select(.body | contains(\"cost-tracker:run-$RUN_ID\"))] | length" \
+        --jq "[.[] | select(.body | contains(\"Agent run cost\")) | select(.body | contains(\"actions/runs/$RUN_ID\"))] | length" \
         > /tmp/gh-aw/data/already_reported_comments.txt 2>/dev/null || echo 0 > /tmp/gh-aw/data/already_reported_comments.txt
-      gh search issues --repo "$REPO" --match body \
-        "cost-tracker:run-$RUN_ID" --state all --limit 5 --json number \
-        --jq 'length' > /tmp/gh-aw/data/already_reported_issues.txt 2>/dev/null || echo 0 > /tmp/gh-aw/data/already_reported_issues.txt
+      gh api "repos/$REPO/issues?state=all&per_page=100" \
+        --jq "[.[] | select(.body != null) | select(.body | contains(\"actions/runs/$RUN_ID\")) | select(.title | startswith(\"[cost-tracker]\"))] | length" \
+        > /tmp/gh-aw/data/already_reported_issues.txt 2>/dev/null || echo 0 > /tmp/gh-aw/data/already_reported_issues.txt
 
       # Pull request to comment on, if the digest produced one.
       gh api "repos/$REPO/actions/runs/$RUN_ID" \
@@ -240,8 +248,7 @@ Use `< $0.0001` for a non-zero cost below that threshold.
 This is the one thing the schedule gets wrong that a `workflow_run` trigger got right for free.
 The schedule fires every day whether or not a digest ran, so on a day the digest was skipped or failed to start, Step 0 returns **yesterday's** run — which has already been reported.
 
-Every report carries a hidden marker as its **first line**, `<!-- cost-tracker:run-RUN_ID -->`.
-The pre-fetch already counted existing occurrences of this run's marker:
+The pre-fetch already counted existing reports for this run:
 
 ```bash
 cat /tmp/gh-aw/data/already_reported_comments.txt
@@ -250,6 +257,10 @@ cat /tmp/gh-aw/data/already_reported_issues.txt
 
 **If either file contains a number greater than 0, this run has already been reported. Produce no output at all and stop.**
 Do not post an updated or corrected version. One report per run, permanently.
+
+A prior report is recognized by containing both the heading `Agent run cost` and the run URL `.../actions/runs/RUN_ID`.
+That is why the report template's `Run` row is not decoration: **it is what makes tomorrow's run recognize today's report.**
+Always emit the `Run` row exactly as templated, with the full run URL as a Markdown link.
 
 ## Step 4b — Find the associated pull request
 
@@ -270,10 +281,10 @@ If it is older or the file is empty, treat it as "no pull request found".
 
 Build the report from this template.
 
-The marker must be the literal first line, before the heading, so Step 4's search can find it next time.
+Keep the `## Agent run cost` heading and the `Run` row verbatim.
+Step 4's duplicate check looks for exactly those two things, so changing either breaks deduplication for the next run.
 
 ```markdown
-<!-- cost-tracker:run-RUN_ID -->
 ## Agent run cost
 
 | | |

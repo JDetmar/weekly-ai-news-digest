@@ -68,7 +68,12 @@ Two things worth understanding:
 
 The tracker runs on a daily schedule at 11:00 UTC rather than on `workflow_run` after the digest.
 That is a workaround, not a preference: gh-aw compiles a fixed activation guard for `workflow_run` triggers that includes `!(github.event.workflow_run.repository.fork)`, and this repository is a fork, so every job was silently skipped.
-The schedule sidesteps the guard at the cost of needing to find the run itself and deduplicate its own reports, which it does with a hidden `<!-- cost-tracker:run-ID -->` marker.
+The schedule sidesteps the guard, at the cost of having to find the run itself and avoid reporting the same run twice on days the digest did not run.
+
+Both of those, and every other GitHub read, happen in a frontmatter `steps:` block rather than in the prompt.
+That is not a stylistic choice: **the `gh` CLI is not authenticated inside the agent sandbox**, so `gh` there fails with exit code 4.
+`steps:` runs on the runner, where the token exists, and leaves compact JSON under `/tmp/gh-aw/data/` for the agent to read.
+It is worth internalizing early, because an unauthenticated `gh` inside the sandbox fails in a way that looks like an ordinary empty result.
 
 If the tracker finds no usage data, or the run it found was already reported, it produces no output at all.
 
