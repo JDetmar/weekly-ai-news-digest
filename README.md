@@ -32,7 +32,7 @@ Everything specific to GitHub Agentic Workflows lives in `.github/`:
 | --- | --- |
 | `workflows/weekly-news-digest.md` | The source of truth, and the only file you normally edit. YAML frontmatter declares triggers, permissions, the network allowlist, and safe outputs; the Markdown body is the agent's prompt. |
 | `workflows/weekly-news-digest.lock.yml` | Compiled output of `gh aw compile`. Generated, do not hand-edit. |
-| `workflows/agent-cost-tracker.md` | A second agentic workflow. Fires on `workflow_run` after a digest completes, reads the token accounting gh-aw records, and posts an estimated cost. A useful contrast with the digest: it is triggered by another workflow rather than a schedule, and its safe outputs are a comment and an issue rather than a pull request. |
+| `workflows/agent-cost-tracker.md` | A second agentic workflow. Finds the most recent digest run, reads the token accounting gh-aw records, and reports what it cost. A useful contrast with the digest: its safe outputs are a comment and an issue rather than a pull request. |
 | `aw/actions-lock.json` | Pinned SHAs for the actions the compiler emits. |
 | `mcp.json` | Wires `gh aw mcp-server` into your editor's agent so it can compile, audit, and read run logs. |
 | `agents/`, `skills/` | Authoring helpers shipped by gh-aw for designing and debugging workflows. |
@@ -49,16 +49,28 @@ That second one removes the human review step that the pull request exists to pr
 It is adapted from the [githubnext/agentics cost-tracker](https://github.com/githubnext/agentics/blob/main/workflows/cost-tracker.md), rewritten against the artifact layout this repository's gh-aw version actually produces.
 
 gh-aw's firewall sits between the agent and the model API, so it records every request's token counts.
-Those land in an artifact named `usage`, as `agent/token_usage.jsonl` for the digest agent and `detection/token_usage.jsonl` for the separate threat-detection pass that inspects the agent's output before the pull request is created.
-The tracker reads both, multiplies by published per-token rates, and comments the total on the digest pull request (or opens an issue if it cannot find one).
-It opens a second issue if a run exceeds $1.00, which is deliberately low for a digest that should cost cents.
+Those land in an artifact named `usage`, alongside an `agent_usage.json` aggregate:
 
-Two caveats worth understanding before trusting the number:
+```json
+{"input_tokens":4728,"output_tokens":15780,"cache_read_tokens":274209,
+ "cache_write_tokens":52715,"ai_credits":51.664,"primary_model":"claude-sonnet-4.6"}
+```
 
-- **It is an estimate, not an invoice.** This repository runs the Copilot engine, which bills as Copilot premium requests rather than per token. The dollar figure is a good proxy for relative cost between runs and is not what you are charged.
+`ai_credits` is the actual billed figure in Copilot premium request credits, so the tracker reports it as the headline number.
+It also computes a dollar estimate at published per-token API rates, which is useful for comparing runs but is not what you are charged.
+The report goes on the digest pull request as a comment, or into an issue when there is no pull request to comment on.
+A second issue opens if a run exceeds 100 credits, roughly 2x an observed normal run.
+
+Two things worth understanding:
+
+- **The dollar figure is an estimate, not an invoice.** Credits are the real unit here. The estimate exists to compare runs against published API rates, nothing more.
 - **The pricing table only covers Claude models.** The Copilot engine can serve GPT and Gemini models too. Rather than apply a fallback rate and produce an authoritative-looking wrong number, the tracker reports any unpriced model's token counts separately and excludes it from the total.
 
-If the tracker finds no usage data it produces no output at all, so it stays quiet rather than opening an empty issue every day.
+The tracker runs on a daily schedule at 11:00 UTC rather than on `workflow_run` after the digest.
+That is a workaround, not a preference: gh-aw compiles a fixed activation guard for `workflow_run` triggers that includes `!(github.event.workflow_run.repository.fork)`, and this repository is a fork, so every job was silently skipped.
+The schedule sidesteps the guard at the cost of needing to find the run itself and deduplicate its own reports, which it does with a hidden `<!-- cost-tracker:run-ID -->` marker.
+
+If the tracker finds no usage data, or the run it found was already reported, it produces no output at all.
 
 ## Customizing the Workflow
 
@@ -78,6 +90,8 @@ The compiler stores hashes of the frontmatter and body in the lock file, so a st
 A few things are not inherited when you fork this repository:
 
 - Scheduled workflows are disabled on new forks. Enable them from the Actions tab.
+- **Settings > Actions > General > "Allow GitHub Actions to create and approve pull requests" must be checked.** Without it the agent researches, writes the digest, passes threat detection, and then fails on the very last step with `GitHub Actions is not permitted to create or approve pull requests`. The whole run is wasted.
+- **Issues must be enabled**, which they are not by default on a fork. Both workflows fall back to opening an issue when they cannot create or comment on a pull request, and that fallback fails silently-ish otherwise.
 - GitHub Pages needs to be enabled in repository settings with **GitHub Actions** as the source.
 - The workflow declares no `engine:`, so it defaults to the Copilot engine and consumes your Copilot entitlement on every run. The `copilot-requests: write` permission in the frontmatter is what grants it.
 - The schedule is a daily cron at 10:00 UTC. GitHub disables scheduled workflows in repositories with no activity for 60 days.
