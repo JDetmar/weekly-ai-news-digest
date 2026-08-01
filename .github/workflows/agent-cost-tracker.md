@@ -5,7 +5,15 @@ on:
     - cron: "0 11 * * *"
   workflow_dispatch:
 
-permissions: read-all
+# `copilot-requests: write` is what makes gh-aw wire COPILOT_GITHUB_TOKEN from the
+# built-in github.token. Without it the Copilot engine demands a COPILOT_GITHUB_TOKEN
+# secret and activation fails. Note that `permissions: read-all` does NOT cover this.
+permissions:
+  contents: read
+  actions: read
+  issues: read
+  pull-requests: read
+  copilot-requests: write
 
 network: defaults
 
