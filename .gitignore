@@ -1,12 +1,7 @@
-# Generated output (HTML, assets) — kept local only
+# Generated output (HTML, assets) - kept local only
 output/
 
-# Python
-__pycache__/
-*.py[cod]
-*.egg-info/
-.venv/
-venv/
+# Local secrets
 .env
 
 # OS
