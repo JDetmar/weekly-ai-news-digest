@@ -28,6 +28,7 @@ network:
     - "openai.com"
     - "blog.google"
     - "mistral.ai"
+    - "claude.com"          # Anthropic blog; scraped, no feed exists
     # Independent AI engineering analysis
     - "simonwillison.net"
     - "www.latent.space"
@@ -52,8 +53,10 @@ You are an expert tech journalist. Your job is to research, curate, and summariz
 
 ## Step 1 — Research
 
-Fetch the following RSS feeds and extract all entries published in the last 14 days.
+Fetch the following sources and extract all entries published in the last 14 days.
 No single group below owns the digest; they exist so that one week's page can span model releases, tooling, platform changes, and industry news rather than a single vendor's changelog.
+
+### RSS and Atom feeds
 
 **Frontier labs and model makers**
 
@@ -83,13 +86,30 @@ No single group below owns the digest; they exist so that one week's page can sp
 - `https://theverge.com/rss/tech/index.xml`
 - `https://venturebeat.com/category/ai/feed/`
 
-Anthropic does not publish a general news RSS feed, so Anthropic company news arrives through the press and analysis feeds above rather than a primary source. Treat well-sourced Anthropic coverage from those feeds as first-class, not as second-tier reporting.
+### HTML sources
 
-If a feed fails to fetch or returns nothing in the window, continue with the rest and note the skipped feed in the run summary. A single unavailable feed must never abort the digest.
+Anthropic publishes no RSS or Atom feed, so its primary source is scraped from the blog index instead. Fetch this page and parse it as HTML:
 
-For each entry capture: **title**, **URL**, **source name**, **published date**, **RSS categories/product metadata**, and a **plain-text excerpt**.
+- `https://claude.com/blog` ← **Anthropic** (Claude product, research, and engineering posts)
 
-Before curation, deduplicate entries across all feeds:
+Each card on that page carries its title, date, and link in dedicated attributes. Extract one entry per card:
+
+- **Title** — the text of the element with `fs-list-field="heading"`, or equivalently the `data-cta-copy` attribute on the card's link.
+- **Published date** — the text of the element with `fs-list-field="date"`, formatted like `July 23, 2026`.
+- **URL** — the `href` on the card's `/blog/<slug>` link, resolved against `https://claude.com`.
+- **Category** — the text of the element with `fs-list-field="category"`, useful as tag input.
+
+Pair these **within a single card**. Do not pair a title with the next card's date; the heading and date sit together in one block that precedes the link, so a naive "nearest following date" match is off by one and will misdate the entry. If a card is missing a title, a parseable date, or a `/blog/` link, skip that card rather than guessing.
+
+This is scraped markup, not a stable contract. If the attributes above are absent, the page layout has changed: skip this source, note it in the run summary, and continue. Never fall back to publishing an Anthropic entry with an invented or approximate date.
+
+### Fetch resilience
+
+If a source fails to fetch, returns nothing in the window, or cannot be parsed, continue with the rest and note the skipped source in the run summary. A single unavailable source must never abort the digest.
+
+For each entry capture: **title**, **URL**, **source name**, **published date**, **categories/product metadata where available**, and a **plain-text excerpt**.
+
+Before curation, deduplicate entries across all sources:
 - Normalize each URL by lowercasing the host and removing fragments, tracking parameters, and trailing slashes.
 - Treat matching normalized URLs as the same story.
 - When URLs differ or are missing, use a normalized title match as a fallback.
@@ -100,7 +120,7 @@ Before curation, deduplicate entries across all feeds:
   - A card whose URL host is `github.blog` must never use **Microsoft Developer** as its source.
 - Every selected story must link to its exact article or changelog entry. Never substitute a publisher homepage or root URL (for example, `https://arstechnica.com/`) when the article URL is unavailable; omit that candidate instead.
 - The Claude Code feed publishes a release per patch, often several per day. Never emit one card per version. Collapse the whole window into **at most 2 cards** that summarize the notable user-facing changes across those releases, and link to the most significant single release. Ignore releases whose notes are only dependency bumps or internal fixes. Apply the same collapsing rule to any other feed that publishes routine per-version releases.
-- When a lab's own announcement and a press write-up cover the same news, keep the primary source as the card and treat the press piece as redundant.
+- When a lab's own announcement and a press write-up cover the same news, keep the primary source as the card and treat the press piece as redundant. This now applies to Anthropic too: prefer the `claude.com/blog` post over secondary coverage of the same announcement.
 
 ## Step 2 — Curate
 
@@ -121,7 +141,7 @@ Assign every candidate to exactly one bucket. Use these names verbatim; they are
 ### Balance rules (hard)
 
 - **At most 5 stories from any single source.**
-- **At most 8 stories from any single vendor ecosystem**, counting a vendor's own channels together. GitHub Changelog, GitHub Blog, and Microsoft Developer count as one Microsoft/GitHub ecosystem; OpenAI's own posts count as one; Google's count as one.
+- **At most 8 stories from any single vendor ecosystem**, counting a vendor's own channels together. GitHub Changelog, GitHub Blog, and Microsoft Developer count as one Microsoft/GitHub ecosystem; Anthropic and Claude Code count as one; OpenAI's own posts count as one; Google's count as one.
 - **No bucket may exceed 12 stories.** `Models & Research`, `AI Coding Tools`, and `Industry & Policy` should each contribute at least 3 when qualifying entries exist.
 - Aim for **at least 4 distinct vendors or labs** represented across `Models & Research` and `AI Coding Tools`.
 
@@ -185,6 +205,7 @@ Before writing `docs/index.html`, validate the final data and client behavior. F
 - No single source exceeds 5 cards, and no single vendor ecosystem exceeds 8.
 - No bucket exceeds 12 cards, and every bucket present in the data has a working filter chip.
 - At most 2 cards summarize Claude Code releases, and no card is a bare per-version release note.
+- Every `claude.com/blog` card has a date parsed from that card's own `fs-list-field="date"` value, and links to a real `/blog/<slug>` path rather than the `/blog` index.
 - Every `github.blog` story is labeled **GitHub Changelog** or **GitHub Blog**; **Microsoft Developer** is used only for non-GitHub entries discovered through the Microsoft Developer feed.
 - Every card has exactly one `High`, `Medium`, or `Low` importance, exactly one bucket, and 2–5 tags from the controlled taxonomy.
 - Every card has non-empty `data-rank`, `data-published`, `data-source`, `data-bucket`, `data-tags`, `data-importance`, and `data-search` attributes.

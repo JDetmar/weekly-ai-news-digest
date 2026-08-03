@@ -12,7 +12,7 @@ The author's blog post, illustrations, and personal tooling have been removed so
 
 ```text
 GitHub Agentic Workflows (daily)
-  -> Research sixteen RSS feeds from the last 14 days
+  -> Research 16 feeds plus the Anthropic blog from the last 14 days
   -> Deduplicate and curate up to 30 stories, balanced across the AI landscape
   -> Write docs/index.html
   -> Create a scoped safe-outputs pull request
@@ -131,6 +131,7 @@ Tune those numbers in `.github/workflows/weekly-news-digest.md` under **Balance 
 
 | Source | Feed | Bucket bias |
 | --- | --- | --- |
+| Anthropic | `claude.com/blog` (HTML, no feed exists) | Models & Research |
 | OpenAI | `openai.com/news/rss.xml` | Models & Research |
 | Google DeepMind | `blog.google/innovation-and-ai/models-and-research/google-deepmind/rss/` | Models & Research |
 | Mistral AI | `mistral.ai/rss.xml` | Models & Research |
@@ -148,12 +149,17 @@ Tune those numbers in `.github/workflows/weekly-news-digest.md` under **Balance 
 | The Verge | `theverge.com/rss/tech/index.xml` | mixed |
 | VentureBeat AI | `venturebeat.com/category/ai/feed/` | mixed |
 
-Anthropic publishes no general news RSS feed, so Anthropic company news arrives through the press and analysis feeds rather than a primary source.
+Anthropic publishes no RSS or Atom feed anywhere, and its sitemap carries no `lastmod`, so there is no machine-readable way to window its posts.
+`claude.com/blog` is therefore the one **scraped** source: it is server-rendered, returns `200` to a plain non-browser client, allows everything in `robots.txt`, and puts each post's title, date, and link in dedicated `fs-list-field` attributes.
+That makes it parseable, but it is markup rather than a contract, so the prompt tells the agent to skip the source and note it in the run summary if those attributes disappear, rather than guessing at dates.
+`anthropic.com/news` and `anthropic.com/engineering` were evaluated and rejected: both list articles but expose no publish dates, so the 14-day window cannot be applied without fetching every article.
+
 The Claude Code release feed covers the tool itself; the prompt collapses a window of patch releases into at most two cards so version bumps cannot flood the page.
+Anthropic and Claude Code count as one vendor ecosystem for the balance rules.
 
 Two feeds were evaluated and left out because they return `403` to non-browser clients and would fail from the Actions runner: Google DeepMind's own `deepmind.google/blog/rss.xml` (covered instead via `blog.google`) and `huggingface.co/blog/feed.xml`.
 
-Adding a source means editing two places in the workflow Markdown: the feed list in the prompt body, and the `network.allowed` list in the frontmatter.
+Adding a source means editing two places in the workflow Markdown: the source list in the prompt body, and the `network.allowed` list in the frontmatter.
 The sandbox blocks any domain that is not on that allowlist, so a feed added only to the prompt will fail to fetch.
 Check the feed's final URL after redirects and allowlist that exact host, since subdomains are not covered implicitly.
 
@@ -177,7 +183,8 @@ weekly-ai-news-digest/
 │   ├── index.html                             # Generated digest site
 │   └── template.html                          # Reference design read by the agent
 ├── scripts/
-│   └── template-filters.test.mjs              # Filter/sort regression test
+│   ├── template-filters.test.mjs              # Filter/sort regression test
+│   └── check-anthropic-blog.mjs               # Verifies the scraped Anthropic source
 ├── package.json                               # Test harness only
 └── README.md
 ```
@@ -196,6 +203,16 @@ npm test
 
 The test renders `docs/template.html` into a concrete page the way the agent would, loads it in jsdom, and drives the actual controls: default selection, source and bucket filters, search, clear-all, and sorting.
 It is not wired into CI yet, so run it after editing the template.
+
+`claude.com/blog` is the one scraped source, and scraped markup breaks silently.
+If a digest run drops Anthropic entirely, check whether the page layout moved:
+
+```bash
+npm run check:anthropic-blog
+```
+
+That script is network-dependent and deliberately excluded from `npm test`.
+It re-runs the exact extraction rule the prompt describes and tells you to update or drop the source if the attributes are gone.
 
 ## License
 
