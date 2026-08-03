@@ -20,6 +20,7 @@ network:
     - "theverge.com"
     - "venturebeat.com"
     - "github.blog"
+    - "developer.microsoft.com"
     - "feeds.feedburner.com"
 
 safe-outputs:
@@ -37,13 +38,14 @@ safe-outputs:
 
 # Weekly AI & Tech News Digest
 
-You are an expert tech journalist. Your job is to research, curate, and summarize the **top 15 AI and technology stories from the last 14 days**, then write a polished static HTML page to `docs/index.html`.
+You are an expert tech journalist. Your job is to research, curate, and summarize **up to 30 of the most important AI and technology stories from the last 14 days**, then write a polished static HTML page to `docs/index.html`.
 
 ## Step 1 — Research
 
 Fetch the following RSS feeds and extract all entries published in the last 14 days:
 
 - `https://github.blog/changelog/feed/` ← **GitHub Changelog** (product & API updates)
+- `https://developer.microsoft.com/api/changelog/rss` ← **Microsoft Developer Changelog** (unified Azure, GitHub, and Microsoft developer updates)
 - `https://techcrunch.com/category/artificial-intelligence/feed/`
 - `https://technologyreview.com/feed/`
 - `https://hnrss.org/frontpage?count=30`
@@ -51,17 +53,27 @@ Fetch the following RSS feeds and extract all entries published in the last 14 d
 - `https://theverge.com/rss/tech/index.xml`
 - `https://venturebeat.com/category/ai/feed/`
 
-For each entry capture: **title**, **URL**, **source name**, **published date**, and a **plain-text excerpt**.
+For each entry capture: **title**, **URL**, **source name**, **published date**, **RSS categories/product metadata**, and a **plain-text excerpt**.
+
+Before curation, deduplicate entries across all feeds:
+- Normalize each URL by lowercasing the host and removing fragments, tracking parameters, and trailing slashes.
+- Treat matching normalized URLs as the same story.
+- When URLs differ or are missing, use a normalized title match as a fallback.
+- The Microsoft Developer feed republishes some GitHub Changelog entries. Keep one copy; if the canonical URL is on `github.blog` or the RSS entry is categorized as GitHub, use **GitHub Changelog** as the source. Use **Microsoft Developer** for the other entries from that feed.
+- Assign source from the canonical article origin, not from the feed that exposed it. A card whose URL host is `github.blog` must never use **Microsoft Developer** as its source.
+- Every selected story must link to its exact article or changelog entry. Never substitute a publisher homepage or root URL (for example, `https://arstechnica.com/`) when the article URL is unavailable; omit that candidate instead.
 
 ## Step 2 — Curate
 
-Select the **15 most important and impactful stories**. Apply these **hard allocation rules**:
+Select **up to 30 unique, important, and impactful stories**. Do not pad the digest with weak or out-of-window entries when fewer than 30 qualify. Apply these **hard allocation rules**:
 
-**MANDATORY: The final 15 stories MUST include:**
-- **At least 7 stories from GitHub Changelog** (`github.blog/changelog/feed/`). This is a strict minimum — include ALL GitHub Changelog entries from the last 14 days if there are 7 or fewer; otherwise pick the 7 most significant ones.
+**MANDATORY: The final digest MUST include:**
+- **At least 15 stories combined from GitHub Changelog and Microsoft Developer** when those sources provide at least 15 qualifying unique entries. There is no separate minimum for either source.
+- If the two priority sources provide fewer than 15 qualifying unique entries, include all of them.
+- After satisfying the priority-source minimum, fill the remaining slots by developer-community importance. Additional GitHub Changelog and Microsoft Developer stories may be selected when they outrank other candidates.
 - **At most 4 stories from any single other source** (e.g., TechCrunch, Ars Technica, The Verge, etc.)
 
-If the GitHub Changelog has fewer than 7 entries this week, fill remaining slots with stories from other sources in this priority order:
+Fill remaining slots with stories in this priority order:
 1. Breakthrough AI/ML research or product launches (non-GitHub)
 2. Developer tools or open-source announcements
 3. Industry-shaping business or policy news
@@ -69,7 +81,11 @@ If the GitHub Changelog has fewer than 7 entries this week, fill remaining slots
 For each selected story, write:
 - **TL;DR** — 2 concise sentences with the key facts
 - **Why it matters** — 1 sentence on real-world impact
-- **Tags** — 2–4 tags chosen from: `AI`, `LLMs`, `Open Source`, `Security`, `Cloud`, `GitHub`, `Startups`, `Research`, `Tools`, `Policy`
+- **Importance** — exactly one of `High`, `Medium`, or `Low`, based on this rubric:
+  - `High`: broad developer impact, urgent security or migration implications, a major platform/tooling change, or immediate action required.
+  - `Medium`: a meaningful product, API, framework, research, or ecosystem change relevant to a substantial developer segment.
+  - `Low`: a narrower announcement, regional availability update, incremental enhancement, or informational change with limited immediate action.
+- **Tags** — 2–5 tags chosen only from: `AI`, `LLMs`, `Open Source`, `Security`, `Cloud`, `GitHub`, `Microsoft`, `Azure`, `.NET`, `DevOps`, `APIs`, `Databases`, `Data`, `Web`, `Mobile`, `Enterprise`, `Productivity`, `Developer Experience`, `Startups`, `Research`, `Tools`, `Policy`
 
 Also produce a separate **GitHub-only highlights set**:
 - Exactly 5 concise bullets for a top-page section named **"TL;DR — GitHub highlights"**
@@ -86,14 +102,33 @@ Requirements:
 - Add a **"TL;DR — Top takeaways" section at the top** (above the story list) with exactly 5 concise bullets summarizing the week
 - Implement **theme modes**: `system` (default), `light`, and `dark`; include a visible theme selector and persist user choice in `localStorage`
 - Implement **filters**:
-  - Source filter chips (e.g., GitHub Changelog, TechCrunch, Ars Technica, The Verge, etc.) with multi-select support
-  - Source filter must default to **GitHub sources selected only** on first load
-  - Free-text keyword search that filters stories by title, source, TL;DR, why-it-matters text, and tags
+  - Source filter chips (e.g., GitHub Changelog, Microsoft Developer, TechCrunch, Ars Technica, The Verge, etc.) with multi-select support
+  - Source filter must default to **GitHub Changelog and Microsoft Developer selected** on first load
+  - Free-text keyword search that filters stories by title, source, TL;DR, why-it-matters text, importance, and tags
   - Label/tag filter chips that can be toggled (multi-select)
-  - Display "Showing X of 15 stories" based on active filters
-- 15 ranked story cards, each showing: numbered badge, source icon + name, linked title, TL;DR paragraph, "💡 Why it matters" callout, tag chips, publication date, "Read full story →" link
+  - Importance filter chips for `Low`, `Medium`, and `High`
+  - Visible active-filter summary and a **Clear all** control that clears search and every source/tag/importance selection, shows all stories, and returns sorting to curated rank
+  - Display "Showing X of Y stories" based on active filters, where Y is the actual generated story count
+- Implement **sorting** for curated rank, importance high-to-low, importance low-to-high, newest, and oldest
+- Up to 30 ranked story cards, each showing: numbered badge, source icon + name, linked title, accessible low-to-high importance icon plus visible importance label, TL;DR paragraph, "💡 Why it matters" callout, tag chips, publication date, "Read full story →" link
+- Each card must include machine-readable `data-rank`, `data-published` (ISO date), `data-source`, `data-tags`, and `data-importance` attributes for filtering and sorting
 - Stats bar showing story count and breakdown by source
 - Footer: "Generated by [GitHub Agentic Workflows](https://github.github.com/gh-aw/) · Source: [JDetmar/weekly-ai-news-digest](https://github.com/JDetmar/weekly-ai-news-digest) · Deployed via GitHub Pages"
 - Fully responsive for mobile
+
+## Step 4 — Mandatory Preflight
+
+Before writing `docs/index.html`, validate the final data and client behavior. Fix every failure instead of publishing a partial or non-compliant page:
+
+- The page contains between 1 and 30 story cards.
+- Canonical article URLs are unique, normalized titles are unique, and no story URL is only a site homepage/root path.
+- GitHub Changelog plus Microsoft Developer account for at least 15 unique cards when at least 15 qualifying priority entries were available.
+- Every `github.blog` story is labeled **GitHub Changelog**; **Microsoft Developer** is used only for non-GitHub entries discovered through the Microsoft Developer feed.
+- Every card has exactly one `High`, `Medium`, or `Low` importance and 2–5 tags from the controlled taxonomy.
+- Every card has non-empty `data-rank`, `data-published`, `data-source`, `data-tags`, `data-importance`, and `data-search` attributes.
+- Search includes title, source, TL;DR, why-it-matters, importance, and tags.
+- Source, tag, and importance controls cover every distinct value present in the cards.
+- The **Clear all** handler empties all source/tag/importance selections, clears search, resets sorting to curated rank, visually deactivates every filter chip, and shows all stories.
+- Sorting and filtering update the visible result count without changing the original curated rank badges.
 
 The output file `docs/index.html` must be a valid, complete HTML document that renders correctly in a browser with no external resources.
