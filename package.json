@@ -1,0 +1,16 @@
+{
+  "name": "weekly-ai-news-digest",
+  "private": true,
+  "type": "module",
+  "description": "Tooling for the weekly AI news digest. The digest itself is produced by the gh-aw workflow, not by npm.",
+  "scripts": {
+    "test": "node scripts/template-filters.test.mjs",
+    "check:anthropic-blog": "node scripts/check-anthropic-blog.mjs"
+  },
+  "engines": {
+    "node": "^22.22.2 || >=24.15.0"
+  },
+  "devDependencies": {
+    "jsdom": "^30.0.1"
+  }
+}

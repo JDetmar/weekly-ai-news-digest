@@ -12,8 +12,8 @@ The author's blog post, illustrations, and personal tooling have been removed so
 
 ```text
 GitHub Agentic Workflows (daily)
-  -> Research eight RSS feeds from the last 14 days
-  -> Deduplicate and curate up to 30 developer-relevant stories
+  -> Research 16 feeds plus the Anthropic blog from the last 14 days
+  -> Deduplicate and curate up to 30 stories, balanced across the AI landscape
   -> Write docs/index.html
   -> Create a scoped safe-outputs pull request
   -> Auto-merge the digest PR (optional, see below)
@@ -105,28 +105,63 @@ You can always trigger a run by hand from [Actions](../../actions/workflows/week
 
 ## What the Digest Includes
 
-- A GitHub and Microsoft Developer priority selection of AI and developer-platform news.
-- At least 15 combined GitHub Changelog and Microsoft Developer stories when enough qualifying entries are available.
-- Cross-feed deduplication, since the unified Microsoft Developer feed republishes some GitHub Changelog entries.
-- A GitHub-only TL;DR highlights section.
+- A landscape view of AI rather than one vendor's release notes, spanning model labs, coding agents, platform changes, engineering practice, and industry news.
+- Cross-feed deduplication, primary sources preferred over secondary reporting of the same news.
+- A "TL;DR — AI coding tools" highlights section covering whichever vendors shipped that period.
 - Concise summaries, developer impact notes, and Low/Medium/High importance indicators for every story.
-- Source, tag, and importance filters; rank/importance/date sorting; a clear-all control; full-text search; and a responsive dark, light, or system theme.
+- Source, coverage-area, tag, and importance filters; rank/importance/date sorting; a clear-all control; full-text search; and a responsive dark, light, or system theme.
+- Every source selected on first load, so the landing view is the whole landscape.
+
+### Coverage Buckets
+
+Every story is assigned exactly one bucket, and the curation rules stop any one bucket or vendor from taking over a week's page.
+
+| Bucket | What lands here |
+| --- | --- |
+| Models & Research | Frontier model releases, capability jumps, notable papers and evaluations |
+| AI Coding Tools | Claude Code, GitHub Copilot, OpenAI Codex, Cursor, and comparable agentic developer tools |
+| Platform & APIs | Changelog-style updates to developer platforms and cloud AI services |
+| AI Engineering | Techniques, architectures, retrospectives, and analysis about building real systems |
+| Industry & Policy | Funding, competitive moves, regulation, safety and governance |
+
+The balance rules are at most 5 stories per source, at most 8 per vendor ecosystem (GitHub Changelog, GitHub Blog, and Microsoft Developer count as one), and at most 12 per bucket.
+Tune those numbers in `.github/workflows/weekly-news-digest.md` under **Balance rules**.
 
 ### News Sources
 
-| Source | Feed |
-| --- | --- |
-| GitHub Changelog | `github.blog/changelog/feed/` |
-| Microsoft Developer Changelog | `developer.microsoft.com/api/changelog/rss` |
-| TechCrunch AI | `techcrunch.com/category/artificial-intelligence/feed/` |
-| MIT Technology Review | `technologyreview.com/feed/` |
-| Hacker News | `hnrss.org/frontpage` |
-| Ars Technica | `feeds.arstechnica.com/arstechnica/technology-lab` |
-| The Verge | `theverge.com/rss/tech/index.xml` |
-| VentureBeat AI | `venturebeat.com/category/ai/feed/` |
+| Source | Feed | Bucket bias |
+| --- | --- | --- |
+| Anthropic | `claude.com/blog` (HTML, no feed exists) | Models & Research |
+| OpenAI | `openai.com/news/rss.xml` | Models & Research |
+| Google DeepMind | `blog.google/innovation-and-ai/models-and-research/google-deepmind/rss/` | Models & Research |
+| Mistral AI | `mistral.ai/rss.xml` | Models & Research |
+| Claude Code | `github.com/anthropics/claude-code/releases.atom` | AI Coding Tools |
+| GitHub Changelog | `github.blog/changelog/feed/` | Platform & APIs |
+| GitHub Blog | `github.blog/feed/` | AI Coding Tools |
+| Microsoft Developer Changelog | `developer.microsoft.com/api/changelog/rss` | Platform & APIs |
+| Simon Willison | `simonwillison.net/atom/everything/` | AI Engineering |
+| Latent Space | `www.latent.space/feed` | AI Engineering |
+| Import AI | `jack-clark.net/feed/` | Industry & Policy |
+| TechCrunch AI | `techcrunch.com/category/artificial-intelligence/feed/` | Industry & Policy |
+| MIT Technology Review | `technologyreview.com/feed/` | Industry & Policy |
+| Hacker News | `hnrss.org/frontpage` | mixed |
+| Ars Technica | `feeds.arstechnica.com/arstechnica/technology-lab` | mixed |
+| The Verge | `theverge.com/rss/tech/index.xml` | mixed |
+| VentureBeat AI | `venturebeat.com/category/ai/feed/` | mixed |
 
-Adding a source means editing two places in the workflow Markdown: the feed list in the prompt body, and the `network.allowed` list in the frontmatter.
+Anthropic publishes no RSS or Atom feed anywhere, and its sitemap carries no `lastmod`, so there is no machine-readable way to window its posts.
+`claude.com/blog` is therefore the one **scraped** source: it is server-rendered, returns `200` to a plain non-browser client, allows everything in `robots.txt`, and puts each post's title, date, and link in dedicated `fs-list-field` attributes.
+That makes it parseable, but it is markup rather than a contract, so the prompt tells the agent to skip the source and note it in the run summary if those attributes disappear, rather than guessing at dates.
+`anthropic.com/news` and `anthropic.com/engineering` were evaluated and rejected: both list articles but expose no publish dates, so the 14-day window cannot be applied without fetching every article.
+
+The Claude Code release feed covers the tool itself; the prompt collapses a window of patch releases into at most two cards so version bumps cannot flood the page.
+Anthropic and Claude Code count as one vendor ecosystem for the balance rules.
+
+Two feeds were evaluated and left out because they return `403` to non-browser clients and would fail from the Actions runner: Google DeepMind's own `deepmind.google/blog/rss.xml` (covered instead via `blog.google`) and `huggingface.co/blog/feed.xml`.
+
+Adding a source means editing two places in the workflow Markdown: the source list in the prompt body, and the `network.allowed` list in the frontmatter.
 The sandbox blocks any domain that is not on that allowlist, so a feed added only to the prompt will fail to fetch.
+Check the feed's final URL after redirects and allowlist that exact host, since subdomains are not covered implicitly.
 
 ## Project Structure
 
@@ -147,11 +182,37 @@ weekly-ai-news-digest/
 ├── docs/
 │   ├── index.html                             # Generated digest site
 │   └── template.html                          # Reference design read by the agent
+├── scripts/
+│   ├── template-filters.test.mjs              # Filter/sort regression test
+│   └── check-anthropic-blog.mjs               # Verifies the scraped Anthropic source
+├── package.json                               # Test harness only
 └── README.md
 ```
 
 `docs/template.html` is not used by any build step.
 The prompt instructs the agent to read it as a style reference before writing `docs/index.html`, which makes it a useful example of steering an agent with a file instead of with more prose.
+
+### Testing the template
+
+The template carries the real filter, search, and sort JavaScript that the generated page inherits, so it is worth guarding.
+
+```bash
+npm install
+npm test
+```
+
+The test renders `docs/template.html` into a concrete page the way the agent would, loads it in jsdom, and drives the actual controls: default selection, source and bucket filters, search, clear-all, and sorting.
+It is not wired into CI yet, so run it after editing the template.
+
+`claude.com/blog` is the one scraped source, and scraped markup breaks silently.
+If a digest run drops Anthropic entirely, check whether the page layout moved:
+
+```bash
+npm run check:anthropic-blog
+```
+
+That script is network-dependent and deliberately excluded from `npm test`.
+It re-runs the exact extraction rule the prompt describes and tells you to update or drop the source if the attributes are gone.
 
 ## License
 
