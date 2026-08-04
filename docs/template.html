@@ -581,8 +581,9 @@
       function updateActiveFilters(query) {
         var details = [];
         var allSources = collectSources();
-        var allSelected = selectedSources.size === 0 || selectedSources.size === allSources.length;
-        details.push("Sources: " + (allSelected ? "All" : Array.from(selectedSources).join(", ")));
+        var allSelected = allSources.length > 0 && selectedSources.size === allSources.length;
+        var sourceSummary = allSelected ? "All" : (selectedSources.size === 0 ? "None" : Array.from(selectedSources).join(", "));
+        details.push("Sources: " + sourceSummary);
         if (selectedBuckets.size) details.push("Buckets: " + Array.from(selectedBuckets).join(", "));
         if (selectedImportance.size) details.push("Importance: " + Array.from(selectedImportance).join(", "));
         if (selectedTags.size) details.push("Tags: " + Array.from(selectedTags).join(", "));
@@ -605,7 +606,7 @@
           var importance = (card.dataset.importance || "").trim();
 
           var matchesQuery = query === "" || text.indexOf(query) !== -1;
-          var matchesSource = selectedSources.size === 0 || selectedSources.has(source);
+          var matchesSource = selectedSources.has(source);
           var matchesBucket = selectedBuckets.size === 0 || selectedBuckets.has(bucket);
           var matchesTags = selectedTags.size === 0 || Array.from(selectedTags).every(function (tag) { return tags.indexOf(tag) !== -1; });
           var matchesImportance = selectedImportance.size === 0 || selectedImportance.has(importance);
