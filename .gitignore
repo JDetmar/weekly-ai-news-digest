@@ -7,3 +7,6 @@ output/
 # OS
 .DS_Store
 Thumbs.db
+
+# Node tooling (test harness only; the digest itself is produced by gh-aw)
+node_modules/
