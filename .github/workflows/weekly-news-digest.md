@@ -12,6 +12,11 @@ permissions:
 network:
   allowed:
     - defaults
+    # Keep safe-output URL validation aligned with gh-aw runtime defaults.
+    - "github.com"
+    - "api.github.com"
+    - "api.githubcopilot.com"
+    - "host.docker.internal"
     # General tech and AI press
     - "techcrunch.com"
     - "technologyreview.com"

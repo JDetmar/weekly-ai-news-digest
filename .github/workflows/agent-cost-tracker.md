@@ -15,7 +15,14 @@ permissions:
   pull-requests: read
   copilot-requests: write
 
-network: defaults
+network:
+  allowed:
+    - defaults
+    # Keep safe-output URL validation aligned with gh-aw runtime defaults.
+    - "github.com"
+    - "api.github.com"
+    - "api.githubcopilot.com"
+    - "host.docker.internal"
 
 safe-outputs:
   add-comment:
