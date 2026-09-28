@@ -42,5 +42,14 @@
       "digest": "sha256:508a0857ec762b1ab1cece29193345b501fab1dd9d1228a7b617062954cecac6",
       "pinned_image": "ghcr.io/github/github-mcp-server:v1.12.2@sha256:508a0857ec762b1ab1cece29193345b501fab1dd9d1228a7b617062954cecac6"
     }
+  },
+  "artifacts": {
+    "github/gh-aw-threat-detection@v0.5.2": {
+      "repo": "github/gh-aw-threat-detection",
+      "version": "v0.5.2",
+      "artifact_base_url": "https://github.com/github/gh-aw-threat-detection/releases/download",
+      "sha256_amd64": "b4ecda6a8f1ee09913c40b58e5e9d3337d2173618d41b1bfdef9207e4e7959b9",
+      "sha256_arm64": "f6260a0f9ad72bcb67c7af19c4ce262ca34e2c3d5ccbf912832a8bd277200904"
+    }
   }
 }
