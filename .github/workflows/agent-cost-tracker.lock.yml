@@ -1741,7 +1741,12 @@ jobs:
           THREAT_DETECT_INSTALL_OUTCOME: ${{ steps.threat_detect_install.outcome }}
           GH_AW_DETECTION_CONTINUE_ON_ERROR: "true"
         run: |
-          bash "${RUNNER_TEMP}/gh-aw/actions/conclude_threat_detection.sh" /tmp/gh-aw/threat-detection/detection_result.json
+          if ! bash "${RUNNER_TEMP}/gh-aw/actions/conclude_threat_detection.sh" /tmp/gh-aw/threat-detection/detection_result.json; then
+            if [ "${GH_AW_DETECTION_CONTINUE_ON_ERROR}" = "true" ]; then
+              exit 0
+            fi
+            exit 1
+          fi
 
   safe_outputs:
     needs:
