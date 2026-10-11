@@ -107,7 +107,12 @@ timeout-minutes: 10
 # Agent Cost Tracker
 
 You are the Agent Cost Tracker.
-Your job is to find the most recent digest run, read the token usage data gh-aw's firewall recorded for it, report what it actually cost in billed AI credits, and estimate the equivalent at published API rates.
+Your job is to find the most recent digest run, read the token usage data gh-aw's firewall recorded for it, and report what it cost.
+
+> **How the digest is billed depends on its provider.**
+> Since 2026-10-11 the digest runs the Claude engine through Anthropic workload identity federation, so it is billed by Anthropic directly at published API rates; the per-request `provider` field is `anthropic`.
+> Older runs used the Copilot engine (`provider` is `copilot`) and were billed in Copilot AI credits.
+> Determine the provider from the agent JSONL before choosing the headline figure in Step 3.
 
 **Repository**: ${{ github.repository }}
 
@@ -189,13 +194,13 @@ If `agent_usage.json` is absent and the agent JSONL is empty, produce no output 
 
 ## Step 3 — Calculate the estimated cost
 
-### 3a. Actual billed credits
+### 3a. Choose the headline figure
 
-`ai_credits` in `agent_usage.json` is what this run actually cost in Copilot premium request credits.
-It is a real billed figure, not an estimate, so report it first and most prominently.
-If the per-request JSONL is present, the last record's `ai_credits_total` should corroborate it; note any disagreement rather than silently picking one.
+- **`provider` is `anthropic`:** the run is billed by Anthropic at the per-token rates below, so the estimated cost from 3b is the headline figure.
+  `ai_credits` is still recorded, but it is gh-aw's internal accounting unit, not a charge; report it as a secondary row labelled "gh-aw AI credits (accounting only)".
+- **`provider` is `copilot`:** `ai_credits` is what the run cost in Copilot premium request credits, a real billed figure, so report it first and most prominently, and treat the 3b dollar figure as a secondary comparison.
 
-The dollar figures below are a *secondary* signal — useful for comparing runs against published API rates, but not what you are charged.
+Either way, if the per-request JSONL is present, the last record's `ai_credits_total` should corroborate `ai_credits`; note any disagreement rather than silently picking one.
 
 ### 3b. Estimated per-token cost
 
@@ -205,15 +210,18 @@ Normalize each model name before matching it against the table: lowercase it, dr
 So `copilot/claude-sonnet-4.6`, `claude-sonnet-4-6`, and `claude-sonnet-4.6` all match the same row.
 
 Rates are USD per 1M tokens.
-Cache write is the 5-minute-TTL rate (1.25x input) and cache read is 0.1x input.
+Cache write is the 5-minute-TTL rate (1.25x input).
+Cache read is usually 0.1x input, but not always (Opus 5.5 reads at $0.20), so use the table value rather than deriving it.
 
 | Model | Input | Output | Cache write | Cache read |
 |-------|-------|--------|-------------|------------|
 | claude-fable-5 | $10.00 | $50.00 | $12.50 | $1.00 |
+| claude-opus-5.5 | $4.00 | $20.00 | $5.00 | $0.20 |
 | claude-opus-5 | $5.00 | $25.00 | $6.25 | $0.50 |
 | claude-opus-4.8 | $5.00 | $25.00 | $6.25 | $0.50 |
 | claude-opus-4.7 | $5.00 | $25.00 | $6.25 | $0.50 |
 | claude-opus-4.6 | $5.00 | $25.00 | $6.25 | $0.50 |
+| claude-sonnet-5.5 | $2.00 | $10.00 | $2.50 | $0.20 |
 | claude-sonnet-5 | $3.00 | $15.00 | $3.75 | $0.30 |
 | claude-sonnet-4.6 | $3.00 | $15.00 | $3.75 | $0.30 |
 | claude-haiku-4.5 | $1.00 | $5.00 | $1.25 | $0.10 |
@@ -298,9 +306,10 @@ Step 4's duplicate check looks for exactly those two things, so changing either 
 |---|---|
 | **Run** | [#RUN_NUMBER](RUN_URL) |
 | **Conclusion** | CONCLUSION |
-| **AI credits billed** | $AI_CREDITS |
+| **Provider** | PROVIDER |
+| **HEADLINE_LABEL** | HEADLINE_VALUE |
 | **Model** | $PRIMARY_MODEL |
-| **Estimated API-rate equivalent** | $TOTAL_COST |
+| **SECONDARY_LABEL** | SECONDARY_VALUE |
 
 <details>
 <summary>Token breakdown by model</summary>
@@ -311,8 +320,12 @@ Step 4's duplicate check looks for exactly those two things, so changing either 
 
 </details>
 
-> **AI credits billed** is the actual figure recorded for this run.
-> **Estimated API-rate equivalent** is what the same tokens would cost at published per-token API rates — useful for comparing runs, but not what you are charged, since this repository runs the Copilot engine and bills in premium requests.
+For an `anthropic` run, `HEADLINE_LABEL` is "Cost at Anthropic API rates" with the 3b total, and `SECONDARY_LABEL` is "gh-aw AI credits (accounting only)" with `ai_credits`.
+For a `copilot` run, `HEADLINE_LABEL` is "AI credits billed" with `ai_credits`, and `SECONDARY_LABEL` is "Estimated API-rate equivalent" with the 3b total.
+Replace these placeholders; never print the placeholder names themselves.
+
+> The headline figure is what this run is billed: Anthropic API rates for the Claude engine, Copilot AI credits for the Copilot engine.
+> The secondary figure is for comparison only.
 
 *Token data from `token_usage.jsonl`, recorded by the [gh-aw](https://github.github.com/gh-aw/) firewall proxy.*
 ```
@@ -321,30 +334,29 @@ Step 4's duplicate check looks for exactly those two things, so changing either 
 
 **If no pull request was found**, create an issue with the `create_issue` tool, titled:
 
-`Run #RUN_NUMBER: $AI_CREDITS credits`
+`Run #RUN_NUMBER: HEADLINE_VALUE`
 
 ## Step 6 — High-spend alert
 
-If **either** of these is true, create a second issue:
+Create a second issue when the headline figure exceeds about 2.5x a normal run:
 
-- `ai_credits` exceeds **100**
-- the estimated API-rate equivalent exceeds **$1.00**
+- **`anthropic` run:** the cost at Anthropic API rates exceeds **$4.00**. A healthy Sonnet 5.5 digest run has been observed at about $1.60.
+- **`copilot` run:** `ai_credits` exceeds **100**. A healthy Copilot digest run has been observed at roughly 50 credits.
+
+Do not alert on the secondary figure.
 
 Title it:
 
-`High spend alert for run #RUN_NUMBER: $AI_CREDITS credits`
+`High spend alert for run #RUN_NUMBER: HEADLINE_VALUE`
 
 Include the full breakdown and a link to the run.
-
-The credit threshold is the one that matters, since credits are what you are billed.
-A healthy digest run has been observed at roughly 50 credits, so 100 is about 2x normal.
-Edit this workflow to match your own budget, and recompile.
+Edit these thresholds to match your own budget, and recompile.
 
 ## Guidelines
 
 - **Silent on runs with no data.** If the artifact or both token files are missing or empty, produce no output whatsoever. A cost tracker that opens an empty issue every day is worse than no cost tracker.
 - **One report per run, forever.** This runs on a schedule, so the same digest run will be the most recent one on every subsequent day the digest does not run. The Step 4 marker check is what stops a daily duplicate, and skipping it turns this workflow into a spam generator. When in doubt about whether a run was already reported, stay silent.
-- **Report credits first.** `ai_credits` is billed and real; the dollar figure is an estimate. Never present the estimate as the headline number.
+- **Report what is billed first.** For the Claude engine that is the cost at Anthropic API rates; for the Copilot engine it is `ai_credits`. Never headline the figure that is not billed.
 - **Never invent a rate.** An unpriced model is reported as unpriced.
 - **Show your arithmetic in the breakdown table** so a reader can check the total without rerunning anything.
 - **No retries.** If a command fails transiently, stop rather than retrying.
