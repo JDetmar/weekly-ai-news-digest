@@ -7,7 +7,23 @@ on:
 permissions:
   contents: read
   pull-requests: read
-  copilot-requests: write
+  id-token: write               # GitHub OIDC token for Anthropic workload identity federation
+
+# Claude authenticates via Anthropic WIF: the AWF api-proxy sidecar exchanges the
+# run's GitHub OIDC token for a short-lived Anthropic token, so no API key secret
+# exists and the agent never sees a credential. The federation rule's subject
+# prefix must match this repo's ID-based OIDC subject
+# (repo:JDetmar@6337802/weekly-ai-news-digest@1318821776:ref:refs/heads/main).
+engine:
+  id: claude
+  model: claude-sonnet-5-5
+  auth:
+    type: github-oidc
+    provider: anthropic
+    federation-rule-id: fdrl_01TdoK31HG74KiSAAakkPJT5
+    organization-id: b6594086-ace2-41ed-a2b6-0cb4fee63d8a
+    service-account-id: svac_01RQdBnr9RFnmwhTppxaP8au
+    workspace-id: wrkspc_012RNK4pvpWZwGNhYMDKWhRA
 
 network:
   allowed:
@@ -15,7 +31,7 @@ network:
     # Keep safe-output URL validation aligned with gh-aw runtime defaults.
     - "github.com"
     - "api.github.com"
-    - "api.githubcopilot.com"
+    - "api.anthropic.com"
     - "host.docker.internal"
     # General tech and AI press
     - "techcrunch.com"
