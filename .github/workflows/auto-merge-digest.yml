@@ -4,11 +4,14 @@ on:
   workflow_run:
     workflows: ["Weekly AI & Tech News Digest"]
     types: [completed]
+    # Only digests generated from main publish automatically; test runs
+    # dispatched from other branches leave their PR open for review.
+    branches: [main]
   workflow_dispatch:
 
 jobs:
   auto-merge:
-    name: Merge open digest PRs
+    name: Merge newest digest PR
     if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     permissions:
@@ -20,7 +23,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Merge digest PRs (oldest first)
+      - name: Merge newest digest PR, close superseded ones
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -28,37 +31,45 @@ jobs:
         run: |
           set -euo pipefail
 
-          prs="$(gh pr list \
+          # The conflict path below commits, which needs an author identity.
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Newest first. Each digest fully replaces docs/index.html, so only
+          # the newest PR is worth publishing; older ones are superseded.
+          mapfile -t prs < <(gh pr list \
             --repo "$REPO" \
             --state open \
             --base main \
             --label digest \
             --json number \
-            --jq 'sort_by(.number) | .[].number')"
+            --jq 'sort_by(.number) | reverse | .[].number')
 
-          if [[ -z "${prs}" ]]; then
+          if [[ ${#prs[@]} -eq 0 ]]; then
             echo "No open digest PRs found."
             exit 0
           fi
 
-          for pr in ${prs}; do
-            echo "Processing PR #${pr}"
-            if gh pr merge "${pr}" --repo "$REPO" --squash --delete-branch; then
-              echo "Merged PR #${pr}"
-              continue
-            fi
-
-            echo "PR #${pr} did not merge cleanly. Rebasing its branch with main."
-            gh pr checkout "${pr}" --repo "$REPO"
-            git fetch origin main
-
-            if ! git merge origin/main --no-ff --no-edit; then
-              # Digest PRs only modify docs/index.html; keep PR content when resolving.
-              git checkout --ours docs/index.html
-              git add docs/index.html
-              git commit -m "Resolve digest merge conflict before auto-merge"
-            fi
-
-            git push
-            gh pr merge "${pr}" --repo "$REPO" --squash --delete-branch
+          newest="${prs[0]}"
+          for pr in "${prs[@]:1}"; do
+            echo "Closing PR #${pr} as superseded by #${newest}"
+            gh pr close "${pr}" --repo "$REPO" --delete-branch \
+              --comment "Superseded by #${newest}."
           done
+
+          echo "Merging PR #${newest}"
+          if gh pr merge "${newest}" --repo "$REPO" --squash --delete-branch; then
+            exit 0
+          fi
+
+          echo "PR #${newest} did not merge cleanly. Updating its branch with main."
+          gh pr checkout "${newest}" --repo "$REPO"
+          git fetch origin main
+          if ! git merge origin/main --no-ff --no-edit; then
+            # Digest PRs only modify docs/index.html; keep the PR's version.
+            git checkout --ours docs/index.html
+            git add docs/index.html
+            git commit --no-edit
+          fi
+          git push
+          gh pr merge "${newest}" --repo "$REPO" --squash --delete-branch
