@@ -49,7 +49,9 @@ network:
     - "openai.com"
     - "blog.google"
     - "mistral.ai"
-    - "claude.com"          # Anthropic blog; scraped, no feed exists
+    - "claude.com"          # Anthropic blog index; post list parsed from embedded page data
+    # npm registry, so `npm ci` can install jsdom for the template filter test
+    - node
     # Independent AI engineering analysis
     - "simonwillison.net"
     - "www.latent.space"
@@ -109,20 +111,26 @@ No single group below owns the digest; they exist so that one week's page can sp
 
 ### HTML sources
 
-Anthropic publishes no RSS or Atom feed, so its primary source is scraped from the blog index instead. Fetch this page and parse it as HTML:
+Anthropic publishes no RSS or Atom feed for its full post stream, so its primary source is extracted from the blog index instead:
 
-- `https://claude.com/blog` ← **Anthropic** (Claude product, research, and engineering posts)
+- `https://claude.com/blog` ← **Anthropic** (Claude product announcements, customer stories, and engineering posts, including posts hosted on `claude.dev` and `www.anthropic.com`)
 
-Each card on that page carries its title, date, and link in dedicated attributes. Extract one entry per card:
+The page renders its post list in the browser from data embedded in the HTML, so there are no per-card HTML elements to scrape. Extract the entries from that embedded data:
 
-- **Title** — the text of the element with `fs-list-field="heading"`, or equivalently the `data-cta-copy` attribute on the card's link.
-- **Published date** — the text of the element with `fs-list-field="date"`, formatted like `July 23, 2026`.
-- **URL** — the `href` on the card's `/blog/<slug>` link, resolved against `https://claude.com`.
-- **Category** — the text of the element with `fs-list-field="category"`, useful as tag input.
+1. Fetch the page and collect every `self.__next_f.push([1,"..."])` call. Each second argument is a JSON string literal; decode each one with a real JSON parser and concatenate them in order.
+2. In the concatenated text, find each `"items":[` array and parse the array with a JSON parser. Keep the objects whose `_type` is `"blogPost"`.
+3. From each object take:
+   - **Title** - `title`, trimmed.
+   - **Published date** - `date`, an ISO `YYYY-MM-DD` value.
+   - **URL** - `https://claude.com/blog/<slug>` when `slug` is set, otherwise `externalUrl` (a `claude.dev` or `www.anthropic.com` article). Label every one of these **Anthropic**.
+   - **Category** - `category.name`, useful as tag input.
+   - **Excerpt** - `excerpt`.
+4. Posts repeat across the arrays (featured lists), so deduplicate by URL.
+5. The first page covers only about the last week and a half. Fetch `https://claude.com/blog?page=2`, then `?page=3`, and so on, until the oldest post you have is older than the 14-day window. Stop after page 5 regardless.
 
-Pair these **within a single card**. Do not pair a title with the next card's date; the heading and date sit together in one block that precedes the link, so a naive "nearest following date" match is off by one and will misdate the entry. If a card is missing a title, a parseable date, or a `/blog/` link, skip that card rather than guessing.
+Skip any object that is missing a title, a valid ISO date, or a URL rather than guessing.
 
-This is scraped markup, not a stable contract. If the attributes above are absent, the page layout has changed: skip this source, note it in the run summary, and continue. Never fall back to publishing an Anthropic entry with an invented or approximate date.
+This is embedded page data, not a stable contract. If no `blogPost` objects parse, the page has changed: skip this source, note it in the run summary, and continue. Never fall back to publishing an Anthropic entry with an invented or approximate date.
 
 ### Fetch resilience
 
@@ -226,7 +234,8 @@ Before writing `docs/index.html`, validate the final data and client behavior. F
 - No single source exceeds 5 cards, and no single vendor ecosystem exceeds 8.
 - No bucket exceeds 12 cards, and every bucket present in the data has a working filter chip.
 - At most 2 cards summarize Claude Code releases, and no card is a bare per-version release note.
-- Every `claude.com/blog` card has a date parsed from that card's own `fs-list-field="date"` value, and links to a real `/blog/<slug>` path rather than the `/blog` index.
+- Every Anthropic card from `claude.com/blog` has the ISO `date` of its own `blogPost` object, and links to that post's article URL rather than the `/blog` index.
+- `npm ci && npm test` passes. It drives the filter JS from `docs/template.html` that the page reuses in jsdom. Install dependencies from the npm registry; never skip the test because a package is missing.
 - Every `github.blog` story is labeled **GitHub Changelog** or **GitHub Blog**; **Microsoft Developer** is used only for non-GitHub entries discovered through the Microsoft Developer feed.
 - Every card has exactly one `High`, `Medium`, or `Low` importance, exactly one bucket, and 2–5 tags from the controlled taxonomy.
 - Every card has non-empty `data-rank`, `data-published`, `data-source`, `data-bucket`, `data-tags`, `data-importance`, and `data-search` attributes.

@@ -131,7 +131,7 @@ Tune those numbers in `.github/workflows/weekly-news-digest.md` under **Balance 
 
 | Source | Feed | Bucket bias |
 | --- | --- | --- |
-| Anthropic | `claude.com/blog` (HTML, no feed exists) | Models & Research |
+| Anthropic | `claude.com/blog` (embedded page data, no full feed exists) | Models & Research |
 | OpenAI | `openai.com/news/rss.xml` | Models & Research |
 | Google DeepMind | `blog.google/innovation-and-ai/models-and-research/google-deepmind/rss/` | Models & Research |
 | Mistral AI | `mistral.ai/rss.xml` | Models & Research |
@@ -149,9 +149,12 @@ Tune those numbers in `.github/workflows/weekly-news-digest.md` under **Balance 
 | The Verge | `theverge.com/rss/tech/index.xml` | mixed |
 | VentureBeat AI | `venturebeat.com/category/ai/feed/` | mixed |
 
-Anthropic publishes no RSS or Atom feed anywhere, and its sitemap carries no `lastmod`, so there is no machine-readable way to window its posts.
-`claude.com/blog` is therefore the one **scraped** source: it is server-rendered, returns `200` to a plain non-browser client, allows everything in `robots.txt`, and puts each post's title, date, and link in dedicated `fs-list-field` attributes.
-That makes it parseable, but it is markup rather than a contract, so the prompt tells the agent to skip the source and note it in the run summary if those attributes disappear, rather than guessing at dates.
+Anthropic publishes no RSS or Atom feed for its full post stream, and its sitemap carries no `lastmod`, so there is no feed that windows all of its posts.
+`claude.com/blog` is therefore the one **scraped** source.
+It returns `200` to a plain non-browser client and renders its post list in the browser from Next.js data embedded in the HTML.
+Each post in that data is a `blogPost` object with a title, an ISO date, and either a `claude.com/blog` slug or an external `claude.dev` or `www.anthropic.com` URL, and `?page=N` reaches older posts.
+That makes it parseable, but it is page data rather than a contract, so the prompt tells the agent to skip the source and note it in the run summary if no `blogPost` objects parse, rather than guessing at dates.
+`claude.dev/rss.xml` is a real feed, but it carries only the developer posts, which the `claude.com/blog` list already includes.
 `anthropic.com/news` and `anthropic.com/engineering` were evaluated and rejected: both list articles but expose no publish dates, so the 14-day window cannot be applied without fetching every article.
 
 The Claude Code release feed covers the tool itself; the prompt collapses a window of patch releases into at most two cards so version bumps cannot flood the page.
@@ -202,9 +205,9 @@ npm test
 ```
 
 The test renders `docs/template.html` into a concrete page the way the agent would, loads it in jsdom, and drives the actual controls: default selection, source and bucket filters, search, clear-all, and sorting.
-It is not wired into CI yet, so run it after editing the template.
+The digest agent runs it before publishing, but it is not wired into CI yet, so also run it after editing the template.
 
-`claude.com/blog` is the one scraped source, and scraped markup breaks silently.
+`claude.com/blog` is the one scraped source, and scraped page data breaks silently.
 If a digest run drops Anthropic entirely, check whether the page layout moved:
 
 ```bash
@@ -212,7 +215,7 @@ npm run check:anthropic-blog
 ```
 
 That script is network-dependent and deliberately excluded from `npm test`.
-It re-runs the exact extraction rule the prompt describes and tells you to update or drop the source if the attributes are gone.
+It re-runs the exact extraction rule the prompt describes and tells you to update or drop the source if the `blogPost` data is gone.
 
 ## License
 
