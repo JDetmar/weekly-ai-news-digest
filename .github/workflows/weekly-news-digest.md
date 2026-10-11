@@ -134,6 +134,9 @@ This is embedded page data, not a stable contract. If no `blogPost` objects pars
 
 ### Fetch resilience
 
+Fetch every source with `curl` (for example `curl -sSL --max-time 30 <url>`), then parse the saved files with whatever tool you like.
+Do not fetch from Node's built-in `fetch` or other libraries that ignore the sandbox's HTTP proxy settings: they bypass the proxy, every request fails, and the firewall reports each source as blocked.
+
 If a source fails to fetch, returns nothing in the window, or cannot be parsed, continue with the rest and note the skipped source in the run summary. A single unavailable source must never abort the digest.
 
 For each entry capture: **title**, **URL**, **source name**, **published date**, **categories/product metadata where available**, and a **plain-text excerpt**.
