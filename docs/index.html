@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Curated weekly digest of AI and developer news, Oct 21 – Nov 4, 2026: models, AI coding tools, platforms, engineering and policy." />
-  <meta property="og:title" content="Weekly AI &amp; Tech News - Oct 21 – Nov 4, 2026" />
-  <meta property="og:description" content="Curated weekly digest of AI and developer news, Oct 21 – Nov 4, 2026: models, AI coding tools, platforms, engineering and policy." />
+  <meta name="description" content="Curated weekly digest of AI and developer news, Oct 22 – Nov 5, 2026: models, AI coding tools, platforms, engineering and policy." />
+  <meta property="og:title" content="Weekly AI &amp; Tech News - Oct 22 – Nov 5, 2026" />
+  <meta property="og:description" content="Curated weekly digest of AI and developer news, Oct 22 – Nov 5, 2026: models, AI coding tools, platforms, engineering and policy." />
   <meta property="og:url" content="https://jdetmar.github.io/weekly-ai-news-digest/" />
   <meta property="og:type" content="website" />
-  <title>Weekly AI &amp; Tech News - Oct 21 – Nov 4, 2026</title>
+  <title>Weekly AI &amp; Tech News - Oct 22 – Nov 5, 2026</title>
 
   <style>
     :root {
@@ -315,7 +315,7 @@
     <div class="container">
       <div class="badge">Weekly Digest</div>
       <h1>Weekly AI &amp; Tech News</h1>
-      <p class="meta">Oct 21 – Nov 4, 2026 - 30 stories - last 14 days</p>
+      <p class="meta">Oct 22 – Nov 5, 2026 - 30 stories - last 14 days</p>
 
       <div class="top-bar">
         <label class="control">Theme:
@@ -345,45 +345,45 @@
   <main class="container">
     <section class="stats">
       <div class="stat">30 stories</div>
-      <div class="stat">7 Industry &amp; Policy</div>
-      <div class="stat">7 Models &amp; Research</div>
-      <div class="stat">6 AI Coding Tools</div>
-      <div class="stat">6 Platform &amp; APIs</div>
+      <div class="stat">9 AI Coding Tools</div>
+      <div class="stat">8 Models &amp; Research</div>
+      <div class="stat">6 Industry &amp; Policy</div>
       <div class="stat">4 AI Engineering</div>
+      <div class="stat">3 Platform &amp; APIs</div>
       <div class="stat">5 from Anthropic</div>
       <div class="stat">5 from OpenAI</div>
-      <div class="stat">4 from Simon Willison</div>
-      <div class="stat">3 from GitHub Blog</div>
+      <div class="stat">4 from TechCrunch</div>
       <div class="stat">3 from GitHub Changelog</div>
+      <div class="stat">3 from Simon Willison</div>
       <div class="stat">2 from Claude Code</div>
-      <div class="stat">2 from TechCrunch</div>
+      <div class="stat">2 from Microsoft Developer</div>
       <div class="stat">1 from Ars Technica</div>
+      <div class="stat">1 from GitHub Blog</div>
       <div class="stat">1 from Google DeepMind</div>
       <div class="stat">1 from Import AI</div>
-      <div class="stat">1 from Microsoft Developer</div>
+      <div class="stat">1 from MIT Technology Review</div>
       <div class="stat">1 from Mistral AI</div>
-      <div class="stat">1 from The Verge</div>
     </section>
 
     <section class="tldr-summary" id="topTakeaways">
       <h2>TL;DR — Top takeaways</h2>
       <ul>
-        <li>Open and cheap models close in: Mistral opened the weights of its 1T-parameter Mistral Large 4, Moonshot’s Kimi K3.1 Pro scored 55 on Artificial Analysis at about half Opus 5.5’s price, and OpenAI shipped the midrange GPT-6.1 Terra for computer use.</li>
-        <li>Frontier safety goes on the record: Anthropic’s revised S-1/A cautions it is nearing AI-accelerated AI development, OpenAI details how it monitors for misalignment, and Anthropic is building FlashProve to prove which model produced an output.</li>
-        <li>Distribution is converging: Anthropic’s full Claude Platform and OpenAI’s models both landed on Google Cloud within a day, and Anthropic donated the Agent Skills standard to the Linux Foundation’s Agentic AI Foundation.</li>
-        <li>Agents are reshaping infrastructure: GitHub Universe introduced the Copilot app and Fusion orchestration, and both GitHub and OpenAI described new Git backends built for agent-scale traffic.</li>
-        <li>The AI toolchain is an attack surface: a backdoored Claude extension sat on Cursor’s marketplace for nearly 12 hours, ChatGPT’s HTML previews were exploited for account takeover, and Actions will block pull_request_target by default on December 2.</li>
+        <li>Midrange and open models advance: OpenAI shipped GPT-6.1 Terra for fast computer use, Mistral opened the weights of its 1T-parameter Large 4, and Moonshot’s Kimi K3.1 Pro weights followed its November 4 deadline.</li>
+        <li>Agents are straining the stack: Claude’s message threads cut time to first token about 35% on very long sessions, OpenAI built Pando to scale Git, and Octoverse shows merged PRs tripling to 220 million a month.</li>
+        <li>Security runs through the week: a backdoored Claude extension sat on Cursor’s marketplace for nearly 12 hours, OpenAI’s pipeline patched 948 Linux kernel privilege-escalation bugs, and ChatGPT’s HTML previews were exploited for account takeover.</li>
+        <li>Coding-agent consolidation continues: OpenAI is acquiring Pierre for Codex, Meta bought Conductor, and Copilot arrived in Xcode and JetBrains Air.</li>
+        <li>Anthropic’s economics and reach are in focus: its S-1 update shows $17B quarterly revenue but compute at 58% of it, the full Claude Platform is GA on Google Cloud, and FlashProve aims to prove which model answered.</li>
       </ul>
     </section>
 
     <section class="tldr-summary" id="codingTldr">
       <h2>TL;DR — AI coding tools</h2>
       <ul>
-        <li>GitHub Universe: the Copilot app, Copilot Fusion multi-model orchestration, cross-repo Copilot projects and Copilot code review Max arrived, and GitHub Enterprise customers can use all Copilot features without a separate subscription.</li>
-        <li>Supply-chain warning: Claude’s VS Code extension 2.1.313 was backdoored on Cursor’s marketplace for nearly 12 hours via the official publisher account, affecting at most 5,000 users.</li>
-        <li>Claude Code added a setting to block writes outside working directories, safety-event telemetry, and pooled group budgets plus a cost-report API for enterprise gateways.</li>
-        <li>Claude Code also added idle compaction, subagent effort control and Monitor on Bedrock, Vertex and Foundry; Opus 4.8 fast mode is removed November 30.</li>
-        <li>GitHub Copilot now runs inside JetBrains Air over the Agent Client Protocol, and Dependabot can update Agent Package Manager skills, prompts and instructions.</li>
+        <li>Supply-chain warning: Claude’s VS Code extension 2.1.313 was backdoored on Cursor’s marketplace for nearly 12 hours, affecting at most 5,000 users; 2.1.314 replaced it.</li>
+        <li>Claude Code removes Opus 4.8 fast mode on November 30, after which requests error rather than falling back; Anthropic points users to Opus 5.5.</li>
+        <li>Claude Code also added a setting to block writes outside working directories, pooled group budgets, a cost-report API for the Claude apps gateway, and idle compaction.</li>
+        <li>GitHub Copilot now runs in Xcode’s coding assistant (public preview, Xcode 27.3 beta) and in JetBrains Air over the Agent Client Protocol, and Dependabot can update Agent Package Manager skills.</li>
+        <li>Consolidation: OpenAI is acquiring Pierre Computer Company to extend Codex into code review and comprehension, and Meta acquired the multi-agent startup Conductor.</li>
       </ul>
     </section>
 
@@ -401,50 +401,50 @@
     <p class="result-line" id="resultLine"></p>
 
     <section class="story-list" id="storyList">
-            <article
+      <article
         class="story-card"
         data-rank="1"
-        data-published="2026-10-28"
-        data-tags="Coding Agents,GitHub,Agents,Enterprise"
-        data-source="GitHub Blog"
-        data-bucket="AI Coding Tools"
+        data-published="2026-10-26"
+        data-tags="Models,LLMs,Agents,OpenAI"
+        data-source="OpenAI"
+        data-bucket="Models &amp; Research"
         data-importance="High"
-        data-search="GitHub Universe 2026: Evolving every layer of the stack GitHub Blog AI Coding Tools High GitHub unveiled the Copilot app for issue-to-merge agent work, Copilot Fusion multi-model orchestration, cross-repo Copilot projects, and Copilot code review Max. GitHub Enterprise customers can now use all Copilot features without a separate subscription, paying for the AI credits they use. GitHub is repositioning itself around orchestrating fleets of agents, and the bundled pricing changes how enterprises budget for Copilot. Coding Agents GitHub Agents Enterprise"
+        data-search="Introducing GPT-6.1 Terra OpenAI Models &amp; Research High OpenAI launched GPT-6.1 Terra, a fast, efficient model built around detailed visual reasoning and precise computer use, and a step up from GPT-5.6 Terra. It targets workday tasks such as filling out forms, interpreting technical drawings and editing video; Simon Willison notes it sits in the same middle slot as Sonnet in Anthropic’s lineup. A cheaper, faster computer-use model makes repetitive UI automation more practical, though choosing between Terra, Astra and Sol will take real testing. Models LLMs Agents OpenAI"
       >
         <div class="story-head">
           <div class="rank">1</div>
           <div>
             <div class="story-meta-line">
-              <div class="source">🐙 GitHub Blog</div>
-              <div class="bucket">AI Coding Tools</div>
+              <div class="source">🟢 OpenAI</div>
+              <div class="bucket">Models &amp; Research</div>
               <div class="importance importance-high" aria-label="High importance">
                 <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
                 <span>High</span>
               </div>
             </div>
-            <div class="title"><a href="https://github.blog/news-insights/company-news/github-universe-2026-evolving-every-layer-of-the-stack/" target="_blank" rel="noopener">GitHub Universe 2026: Evolving every layer of the stack</a></div>
+            <div class="title"><a href="https://openai.com/index/introducing-gpt-6-1-terra" target="_blank" rel="noopener">Introducing GPT-6.1 Terra</a></div>
           </div>
         </div>
-        <p class="tldr">GitHub unveiled the Copilot app for issue-to-merge agent work, Copilot Fusion multi-model orchestration, cross-repo Copilot projects, and Copilot code review Max. GitHub Enterprise customers can now use all Copilot features without a separate subscription, paying for the AI credits they use.</p>
-        <p class="why">💡 Why it matters: GitHub is repositioning itself around orchestrating fleets of agents, and the bundled pricing changes how enterprises budget for Copilot.</p>
+        <p class="tldr">OpenAI launched GPT-6.1 Terra, a fast, efficient model built around detailed visual reasoning and precise computer use, and a step up from GPT-5.6 Terra. It targets workday tasks such as filling out forms, interpreting technical drawings and editing video; Simon Willison notes it sits in the same middle slot as Sonnet in Anthropic’s lineup.</p>
+        <p class="why">💡 Why it matters: A cheaper, faster computer-use model makes repetitive UI automation more practical, though choosing between Terra, Astra and Sol will take real testing.</p>
         <div class="story-footer">
-          <span class="tag">Coding Agents</span>
-          <span class="tag">GitHub</span>
+          <span class="tag">Models</span>
+          <span class="tag">LLMs</span>
           <span class="tag">Agents</span>
-          <span class="tag">Enterprise</span>
-          <a href="https://github.blog/news-insights/company-news/github-universe-2026-evolving-every-layer-of-the-stack/" target="_blank" rel="noopener">Read full story →</a>
-          <span class="date">Oct 28</span>
+          <span class="tag">OpenAI</span>
+          <a href="https://openai.com/index/introducing-gpt-6-1-terra" target="_blank" rel="noopener">Read full story →</a>
+          <span class="date">Oct 26</span>
         </div>
       </article>
       <article
         class="story-card"
         data-rank="2"
         data-published="2026-10-29"
-        data-tags="Models,Open Source,LLMs,Coding Agents"
+        data-tags="Models,Open Source,LLMs,Security"
         data-source="Mistral AI"
         data-bucket="Models &amp; Research"
         data-importance="High"
-        data-search="Mistral Large 4 (“Le Chonk”) weights are now open Mistral AI Models &amp; Research High Mistral opened the weights of Mistral Large 4, a 1-trillion-parameter multimodal model trained in Europe that it calls the best open-weight model for coding. The release is pitched at coders and defenders who want to self-host. A self-hostable model at the open-weight coding frontier gives teams a sovereign alternative to closed APIs, though the ranking is Mistral’s own claim. Models Open Source LLMs Coding Agents"
+        data-search="Le Chonk: Built for Coders, Trusted by Defenders. Mistral AI Models &amp; Research High Mistral released the weights of an improved Mistral Large 4 (“Le Chonk”), a 1-trillion-parameter natively multimodal model trained on European infrastructure. Mistral says it is the best open-weight model for coding and defensive security, with three reasoning modes and better reasoning efficiency that lowers inference cost. A frontier-scale open-weight model that can be self-hosted gives teams with sovereignty or privacy constraints a credible alternative to closed APIs. Models Open Source LLMs Security"
       >
         <div class="story-head">
           <div class="rank">2</div>
@@ -457,102 +457,67 @@
                 <span>High</span>
               </div>
             </div>
-            <div class="title"><a href="https://mistral.ai/news/mistral-large-4-oss" target="_blank" rel="noopener">Mistral Large 4 (“Le Chonk”) weights are now open</a></div>
+            <div class="title"><a href="https://mistral.ai/news/mistral-large-4-oss/" target="_blank" rel="noopener">Le Chonk: Built for Coders, Trusted by Defenders.</a></div>
           </div>
         </div>
-        <p class="tldr">Mistral opened the weights of Mistral Large 4, a 1-trillion-parameter multimodal model trained in Europe that it calls the best open-weight model for coding. The release is pitched at coders and defenders who want to self-host.</p>
-        <p class="why">💡 Why it matters: A self-hostable model at the open-weight coding frontier gives teams a sovereign alternative to closed APIs, though the ranking is Mistral’s own claim.</p>
+        <p class="tldr">Mistral released the weights of an improved Mistral Large 4 (“Le Chonk”), a 1-trillion-parameter natively multimodal model trained on European infrastructure. Mistral says it is the best open-weight model for coding and defensive security, with three reasoning modes and better reasoning efficiency that lowers inference cost.</p>
+        <p class="why">💡 Why it matters: A frontier-scale open-weight model that can be self-hosted gives teams with sovereignty or privacy constraints a credible alternative to closed APIs.</p>
         <div class="story-footer">
           <span class="tag">Models</span>
           <span class="tag">Open Source</span>
           <span class="tag">LLMs</span>
-          <span class="tag">Coding Agents</span>
-          <a href="https://mistral.ai/news/mistral-large-4-oss" target="_blank" rel="noopener">Read full story →</a>
+          <span class="tag">Security</span>
+          <a href="https://mistral.ai/news/mistral-large-4-oss/" target="_blank" rel="noopener">Read full story →</a>
           <span class="date">Oct 29</span>
         </div>
       </article>
       <article
         class="story-card"
         data-rank="3"
-        data-published="2026-10-26"
-        data-tags="Models,OpenAI,LLMs,Agents"
-        data-source="OpenAI"
-        data-bucket="Models &amp; Research"
-        data-importance="Medium"
-        data-search="Introducing GPT-6.1 Terra OpenAI Models &amp; Research Medium OpenAI’s GPT-6.1 Terra is a fast, efficient model that pairs detailed visual reasoning and precise computer use with clearer writing, a step up from GPT-5.6 Terra. OpenAI’s Ted Sanders places it as a midrange API option: cheaper than Sol, much smarter than Luna, and similar to Astra and Sol on vision and computer use but much faster. A cheaper model that holds up on computer use suits repetitive automation, but it is not a bombshell for subscribers. Models OpenAI LLMs Agents"
+        data-published="2026-11-02"
+        data-tags="Anthropic,APIs,Agents,Developer Experience"
+        data-source="Anthropic"
+        data-bucket="Platform &amp; APIs"
+        data-importance="High"
+        data-search="Make long-running agents faster with message threads Anthropic Platform &amp; APIs High Message threads is now in public beta on the Claude Platform: the first Messages API request carries the full conversation and later requests send only new messages plus the previous response ID. Anthropic reports a roughly 35% drop in median time to first token on 500K–1M token requests, and token usage stays the same. Coding and computer-use agents that resend huge histories every turn can cut latency by changing how they call the API, with threads held encrypted in memory for five minutes. Anthropic APIs Agents Developer Experience"
       >
         <div class="story-head">
           <div class="rank">3</div>
           <div>
             <div class="story-meta-line">
-              <div class="source">🟢 OpenAI</div>
-              <div class="bucket">Models &amp; Research</div>
-              <div class="importance importance-medium" aria-label="Medium importance">
-                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                <span>Medium</span>
-              </div>
-            </div>
-            <div class="title"><a href="https://openai.com/index/introducing-gpt-6-1-terra" target="_blank" rel="noopener">Introducing GPT-6.1 Terra</a></div>
-          </div>
-        </div>
-        <p class="tldr">OpenAI’s GPT-6.1 Terra is a fast, efficient model that pairs detailed visual reasoning and precise computer use with clearer writing, a step up from GPT-5.6 Terra. OpenAI’s Ted Sanders places it as a midrange API option: cheaper than Sol, much smarter than Luna, and similar to Astra and Sol on vision and computer use but much faster.</p>
-        <p class="why">💡 Why it matters: A cheaper model that holds up on computer use suits repetitive automation, but it is not a bombshell for subscribers.</p>
-        <div class="story-footer">
-          <span class="tag">Models</span>
-          <span class="tag">OpenAI</span>
-          <span class="tag">LLMs</span>
-          <span class="tag">Agents</span>
-          <a href="https://openai.com/index/introducing-gpt-6-1-terra" target="_blank" rel="noopener">Read full story →</a>
-          <span class="date">Oct 26</span>
-        </div>
-      </article>
-      <article
-        class="story-card"
-        data-rank="4"
-        data-published="2026-11-02"
-        data-tags="Safety,Anthropic,Policy,AI"
-        data-source="TechCrunch"
-        data-bucket="Industry &amp; Policy"
-        data-importance="High"
-        data-search="Anthropic warns that it’s very close to RSI capability, aka self-building AI TechCrunch Industry &amp; Policy High Fine print in Anthropic’s revised S-1/A cautions that using AI to build more capable AI could sharply accelerate progress and pose a considerable safety risk. The filing says this is an area covered by its Responsible Scaling Policy. A leading lab telling investors that recursive self-improvement is approaching moves the topic from forecasting essays to formal risk disclosure. Safety Anthropic Policy AI"
-      >
-        <div class="story-head">
-          <div class="rank">4</div>
-          <div>
-            <div class="story-meta-line">
-              <div class="source">📰 TechCrunch</div>
-              <div class="bucket">Industry &amp; Policy</div>
+              <div class="source">🟠 Anthropic</div>
+              <div class="bucket">Platform &amp; APIs</div>
               <div class="importance importance-high" aria-label="High importance">
                 <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
                 <span>High</span>
               </div>
             </div>
-            <div class="title"><a href="https://techcrunch.com/2026/11/02/anthropic-warns-that-its-very-close-to-rsi-capability-aka-self-building-ai/" target="_blank" rel="noopener">Anthropic warns that it’s very close to RSI capability, aka self-building AI</a></div>
+            <div class="title"><a href="https://claude.com/blog/message-threads" target="_blank" rel="noopener">Make long-running agents faster with message threads</a></div>
           </div>
         </div>
-        <p class="tldr">Fine print in Anthropic’s revised S-1/A cautions that using AI to build more capable AI could sharply accelerate progress and pose a considerable safety risk. The filing says this is an area covered by its Responsible Scaling Policy.</p>
-        <p class="why">💡 Why it matters: A leading lab telling investors that recursive self-improvement is approaching moves the topic from forecasting essays to formal risk disclosure.</p>
+        <p class="tldr">Message threads is now in public beta on the Claude Platform: the first Messages API request carries the full conversation and later requests send only new messages plus the previous response ID. Anthropic reports a roughly 35% drop in median time to first token on 500K–1M token requests, and token usage stays the same.</p>
+        <p class="why">💡 Why it matters: Coding and computer-use agents that resend huge histories every turn can cut latency by changing how they call the API, with threads held encrypted in memory for five minutes.</p>
         <div class="story-footer">
-          <span class="tag">Safety</span>
           <span class="tag">Anthropic</span>
-          <span class="tag">Policy</span>
-          <span class="tag">AI</span>
-          <a href="https://techcrunch.com/2026/11/02/anthropic-warns-that-its-very-close-to-rsi-capability-aka-self-building-ai/" target="_blank" rel="noopener">Read full story →</a>
-          <span class="date">Nov 2</span>
+          <span class="tag">APIs</span>
+          <span class="tag">Agents</span>
+          <span class="tag">Developer Experience</span>
+          <a href="https://claude.com/blog/message-threads" target="_blank" rel="noopener">Read full story →</a>
+          <span class="date">Nov 02</span>
         </div>
       </article>
       <article
         class="story-card"
-        data-rank="5"
+        data-rank="4"
         data-published="2026-10-30"
-        data-tags="Security,Coding Agents,Anthropic,Tools"
+        data-tags="Security,Anthropic,Coding Agents,Developer Experience"
         data-source="Ars Technica"
         data-bucket="AI Coding Tools"
         data-importance="High"
-        data-search="Anthropic VS code extension on Cursor backdoored for nearly 12 hours Ars Technica AI Coding Tools High A malicious version 2.1.313 of Anthropic’s Claude extension was published through the official account on Cursor’s marketplace, reaching at most 5,000 users. It tried to install a persistent SSH backdoor and collected environment-variable names to inventory cloud credentials; Anthropic shipped 2.1.314 hours later, and how attackers got the account is still unexplained. Agentic coding extensions run with the IDE’s full permissions, so a hijacked publisher account is a direct path to source code and cloud credentials; check your installed version and rotate secrets if you ran 2.1.313. Security Coding Agents Anthropic Tools"
+        data-search="Anthropic VS code extension on Cursor backdoored for nearly 12 hours Ars Technica AI Coding Tools High A malicious version 2.1.313 of Anthropic’s Claude VS Code extension was published through its official account on Cursor’s marketplace, affecting at most 5,000 users according to Cursor. Anthropic shipped 2.1.314 several hours later, and how attackers got into the publisher account is still unknown. Extensions auto-update by default and run with developer credentials, so check whether you installed 2.1.313 and rotate any cloud secrets on affected machines. Security Anthropic Coding Agents Developer Experience"
       >
         <div class="story-head">
-          <div class="rank">5</div>
+          <div class="rank">4</div>
           <div>
             <div class="story-meta-line">
               <div class="source">🔧 Ars Technica</div>
@@ -565,239 +530,134 @@
             <div class="title"><a href="https://arstechnica.com/security/2026/10/anthropic-vs-code-extension-on-cursor-backdoored-for-nearly-12-hours/" target="_blank" rel="noopener">Anthropic VS code extension on Cursor backdoored for nearly 12 hours</a></div>
           </div>
         </div>
-        <p class="tldr">A malicious version 2.1.313 of Anthropic’s Claude extension was published through the official account on Cursor’s marketplace, reaching at most 5,000 users. It tried to install a persistent SSH backdoor and collected environment-variable names to inventory cloud credentials; Anthropic shipped 2.1.314 hours later, and how attackers got the account is still unexplained.</p>
-        <p class="why">💡 Why it matters: Agentic coding extensions run with the IDE’s full permissions, so a hijacked publisher account is a direct path to source code and cloud credentials; check your installed version and rotate secrets if you ran 2.1.313.</p>
+        <p class="tldr">A malicious version 2.1.313 of Anthropic’s Claude VS Code extension was published through its official account on Cursor’s marketplace, affecting at most 5,000 users according to Cursor. Anthropic shipped 2.1.314 several hours later, and how attackers got into the publisher account is still unknown.</p>
+        <p class="why">💡 Why it matters: Extensions auto-update by default and run with developer credentials, so check whether you installed 2.1.313 and rotate any cloud secrets on affected machines.</p>
         <div class="story-footer">
           <span class="tag">Security</span>
-          <span class="tag">Coding Agents</span>
           <span class="tag">Anthropic</span>
-          <span class="tag">Tools</span>
+          <span class="tag">Coding Agents</span>
+          <span class="tag">Developer Experience</span>
           <a href="https://arstechnica.com/security/2026/10/anthropic-vs-code-extension-on-cursor-backdoored-for-nearly-12-hours/" target="_blank" rel="noopener">Read full story →</a>
           <span class="date">Oct 30</span>
         </div>
       </article>
       <article
         class="story-card"
-        data-rank="6"
-        data-published="2026-11-02"
-        data-tags="GitHub,Security,DevOps,APIs"
-        data-source="GitHub Changelog"
-        data-bucket="Platform &amp; APIs"
-        data-importance="High"
-        data-search="pull_request_target blocked by default December 2 GitHub Changelog Platform &amp; APIs High Starting December 2, 2026, GitHub Actions will block pull_request_target events by default in all public repositories unless an Actions event policy explicitly allows them. Enforcement had previously been scheduled earlier. Workflows that rely on pull_request_target in public repos will stop triggering on December 2 unless maintainers add an allowing policy, so audit them now. GitHub Security DevOps APIs"
-      >
-        <div class="story-head">
-          <div class="rank">6</div>
-          <div>
-            <div class="story-meta-line">
-              <div class="source">🐙 GitHub Changelog</div>
-              <div class="bucket">Platform &amp; APIs</div>
-              <div class="importance importance-high" aria-label="High importance">
-                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                <span>High</span>
-              </div>
-            </div>
-            <div class="title"><a href="https://github.blog/changelog/2026-11-02-pull_request_target-blocked-by-default-december-2" target="_blank" rel="noopener">pull_request_target blocked by default December 2</a></div>
-          </div>
-        </div>
-        <p class="tldr">Starting December 2, 2026, GitHub Actions will block pull_request_target events by default in all public repositories unless an Actions event policy explicitly allows them. Enforcement had previously been scheduled earlier.</p>
-        <p class="why">💡 Why it matters: Workflows that rely on pull_request_target in public repos will stop triggering on December 2 unless maintainers add an allowing policy, so audit them now.</p>
-        <div class="story-footer">
-          <span class="tag">GitHub</span>
-          <span class="tag">Security</span>
-          <span class="tag">DevOps</span>
-          <span class="tag">APIs</span>
-          <a href="https://github.blog/changelog/2026-11-02-pull_request_target-blocked-by-default-december-2" target="_blank" rel="noopener">Read full story →</a>
-          <span class="date">Nov 2</span>
-        </div>
-      </article>
-      <article
-        class="story-card"
-        data-rank="7"
-        data-published="2026-10-23"
-        data-tags="Models,Open Source,LLMs,Evals"
-        data-source="Simon Willison"
+        data-rank="5"
+        data-published="2026-11-04"
+        data-tags="Security,Agents,OpenAI,Open Source"
+        data-source="OpenAI"
         data-bucket="Models &amp; Research"
         data-importance="High"
-        data-search="Introducing Kimi K3.1 Pro Simon Willison Models &amp; Research High Moonshot’s Kimi K3.1 Pro is on its API at $2 per million input and $10 per million output tokens, with full weights promised by November 4. Artificial Analysis scored it 55, behind only Claude Opus 5.5 (58) and ahead of Claude Fable 5.1, GPT-6 Astra and Gemini 4 Argon (all 53). It is the first soon-to-be open-weight model to score this close to the frontier, at roughly half Opus 5.5’s price, which pressures closed-model pricing. Models Open Source LLMs Evals"
+        data-search="A thousand fewer paths to root OpenAI Models &amp; Research High OpenAI built an autonomous pipeline that found, validated and generated patches for 948 local privilege-escalation vulnerabilities in the Linux kernel. The post reached the Hacker News front page with several hundred points and comments. It is a concrete measure of how far automated vulnerability discovery and patching has moved, which raises the bar for both attackers and maintainers. Security Agents OpenAI Open Source"
       >
         <div class="story-head">
-          <div class="rank">7</div>
+          <div class="rank">5</div>
           <div>
             <div class="story-meta-line">
-              <div class="source">✍️ Simon Willison</div>
+              <div class="source">🟢 OpenAI</div>
               <div class="bucket">Models &amp; Research</div>
               <div class="importance importance-high" aria-label="High importance">
                 <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
                 <span>High</span>
               </div>
             </div>
-            <div class="title"><a href="https://simonwillison.net/2026/Oct/23/kimi-k31-pro/" target="_blank" rel="noopener">Introducing Kimi K3.1 Pro</a></div>
+            <div class="title"><a href="https://openai.com/index/a-thousand-fewer-paths-to-root" target="_blank" rel="noopener">A thousand fewer paths to root</a></div>
           </div>
         </div>
-        <p class="tldr">Moonshot’s Kimi K3.1 Pro is on its API at $2 per million input and $10 per million output tokens, with full weights promised by November 4. Artificial Analysis scored it 55, behind only Claude Opus 5.5 (58) and ahead of Claude Fable 5.1, GPT-6 Astra and Gemini 4 Argon (all 53).</p>
-        <p class="why">💡 Why it matters: It is the first soon-to-be open-weight model to score this close to the frontier, at roughly half Opus 5.5’s price, which pressures closed-model pricing.</p>
+        <p class="tldr">OpenAI built an autonomous pipeline that found, validated and generated patches for 948 local privilege-escalation vulnerabilities in the Linux kernel. The post reached the Hacker News front page with several hundred points and comments.</p>
+        <p class="why">💡 Why it matters: It is a concrete measure of how far automated vulnerability discovery and patching has moved, which raises the bar for both attackers and maintainers.</p>
         <div class="story-footer">
-          <span class="tag">Models</span>
-          <span class="tag">Open Source</span>
-          <span class="tag">LLMs</span>
-          <span class="tag">Evals</span>
-          <a href="https://simonwillison.net/2026/Oct/23/kimi-k31-pro/" target="_blank" rel="noopener">Read full story →</a>
-          <span class="date">Oct 23</span>
-        </div>
-      </article>
-      <article
-        class="story-card"
-        data-rank="8"
-        data-published="2026-10-22"
-        data-tags="Anthropic,Cloud,APIs,Enterprise"
-        data-source="Anthropic"
-        data-bucket="Platform &amp; APIs"
-        data-importance="Medium"
-        data-search="The full Claude Platform, available on Google Cloud Anthropic Platform &amp; APIs Medium Claude Models on Google Cloud (Anthropic managed) is generally available, bringing the full Claude Platform with Google Cloud IAM credentials, one Google Cloud invoice, and spend that draws down existing commitments. New features and betas ship the same day as on the native platform, with US and Global endpoints. Teams standardized on Google Cloud can use Claude’s newest features without a separate vendor contract or credential setup. Anthropic Cloud APIs Enterprise"
-      >
-        <div class="story-head">
-          <div class="rank">8</div>
-          <div>
-            <div class="story-meta-line">
-              <div class="source">🟠 Anthropic</div>
-              <div class="bucket">Platform &amp; APIs</div>
-              <div class="importance importance-medium" aria-label="Medium importance">
-                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                <span>Medium</span>
-              </div>
-            </div>
-            <div class="title"><a href="https://claude.com/blog/claude-models-on-google-cloud-anthropic-managed" target="_blank" rel="noopener">The full Claude Platform, available on Google Cloud</a></div>
-          </div>
-        </div>
-        <p class="tldr">Claude Models on Google Cloud (Anthropic managed) is generally available, bringing the full Claude Platform with Google Cloud IAM credentials, one Google Cloud invoice, and spend that draws down existing commitments. New features and betas ship the same day as on the native platform, with US and Global endpoints.</p>
-        <p class="why">💡 Why it matters: Teams standardized on Google Cloud can use Claude’s newest features without a separate vendor contract or credential setup.</p>
-        <div class="story-footer">
-          <span class="tag">Anthropic</span>
-          <span class="tag">Cloud</span>
-          <span class="tag">APIs</span>
-          <span class="tag">Enterprise</span>
-          <a href="https://claude.com/blog/claude-models-on-google-cloud-anthropic-managed" target="_blank" rel="noopener">Read full story →</a>
-          <span class="date">Oct 22</span>
-        </div>
-      </article>
-      <article
-        class="story-card"
-        data-rank="9"
-        data-published="2026-10-21"
-        data-tags="OpenAI,Google,Cloud,APIs"
-        data-source="OpenAI"
-        data-bucket="Platform &amp; APIs"
-        data-importance="Medium"
-        data-search="OpenAI models are coming to Google Cloud OpenAI Platform &amp; APIs Medium OpenAI and Google Cloud are bringing frontier models and Codex workflows to Gemini’s Model Garden, available through Google Cloud Marketplace. Together with Claude’s Google Cloud launch a day later, it shows rival labs distributing through each other’s clouds, which weakens single-vendor lock-in. OpenAI Google Cloud APIs"
-      >
-        <div class="story-head">
-          <div class="rank">9</div>
-          <div>
-            <div class="story-meta-line">
-              <div class="source">🟢 OpenAI</div>
-              <div class="bucket">Platform &amp; APIs</div>
-              <div class="importance importance-medium" aria-label="Medium importance">
-                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                <span>Medium</span>
-              </div>
-            </div>
-            <div class="title"><a href="https://openai.com/index/openai-models-google-cloud" target="_blank" rel="noopener">OpenAI models are coming to Google Cloud</a></div>
-          </div>
-        </div>
-        <p class="tldr">OpenAI and Google Cloud are bringing frontier models and Codex workflows to Gemini’s Model Garden, available through Google Cloud Marketplace.</p>
-        <p class="why">💡 Why it matters: Together with Claude’s Google Cloud launch a day later, it shows rival labs distributing through each other’s clouds, which weakens single-vendor lock-in.</p>
-        <div class="story-footer">
-          <span class="tag">OpenAI</span>
-          <span class="tag">Google</span>
-          <span class="tag">Cloud</span>
-          <span class="tag">APIs</span>
-          <a href="https://openai.com/index/openai-models-google-cloud" target="_blank" rel="noopener">Read full story →</a>
-          <span class="date">Oct 21</span>
-        </div>
-      </article>
-      <article
-        class="story-card"
-        data-rank="10"
-        data-published="2026-10-30"
-        data-tags="Coding Agents,Anthropic,Security,Enterprise"
-        data-source="Claude Code"
-        data-bucket="AI Coding Tools"
-        data-importance="Medium"
-        data-search="Claude Code: tighter permissions, sandbox and enterprise gateway controls Claude Code AI Coding Tools Medium Releases 2.1.307–2.1.317 added a permissions.blockWritesOutsideWorkingDirectories setting, safety-event OpenTelemetry events, and a prompt before tool calls send your account email to the network. Claude apps gateway gained pooled group budgets, IdP-group routing and a cost-report admin API, and sandbox startup-file leaks were fixed. Platform teams get stricter guardrails and spend controls for rolling out Claude Code across an organization. Coding Agents Anthropic Security Enterprise"
-      >
-        <div class="story-head">
-          <div class="rank">10</div>
-          <div>
-            <div class="story-meta-line">
-              <div class="source">⌨️ Claude Code</div>
-              <div class="bucket">AI Coding Tools</div>
-              <div class="importance importance-medium" aria-label="Medium importance">
-                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                <span>Medium</span>
-              </div>
-            </div>
-            <div class="title"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.314" target="_blank" rel="noopener">Claude Code: tighter permissions, sandbox and enterprise gateway controls</a></div>
-          </div>
-        </div>
-        <p class="tldr">Releases 2.1.307–2.1.317 added a permissions.blockWritesOutsideWorkingDirectories setting, safety-event OpenTelemetry events, and a prompt before tool calls send your account email to the network. Claude apps gateway gained pooled group budgets, IdP-group routing and a cost-report admin API, and sandbox startup-file leaks were fixed.</p>
-        <p class="why">💡 Why it matters: Platform teams get stricter guardrails and spend controls for rolling out Claude Code across an organization.</p>
-        <div class="story-footer">
-          <span class="tag">Coding Agents</span>
-          <span class="tag">Anthropic</span>
           <span class="tag">Security</span>
-          <span class="tag">Enterprise</span>
-          <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.314" target="_blank" rel="noopener">Read full story →</a>
-          <span class="date">Oct 30</span>
+          <span class="tag">Agents</span>
+          <span class="tag">OpenAI</span>
+          <span class="tag">Open Source</span>
+          <a href="https://openai.com/index/a-thousand-fewer-paths-to-root" target="_blank" rel="noopener">Read full story →</a>
+          <span class="date">Nov 04</span>
         </div>
       </article>
       <article
         class="story-card"
-        data-rank="11"
-        data-published="2026-10-31"
-        data-tags="Coding Agents,Anthropic,Developer Experience,Tools"
-        data-source="Claude Code"
-        data-bucket="AI Coding Tools"
-        data-importance="Medium"
-        data-search="Claude Code: idle compaction, subagent effort and Opus 4.8 fast-mode retirement Claude Code AI Coding Tools Medium Recent releases summarize idle 200K+ token conversations when the prompt cache has expired, add CLAUDE_CODE_SUBAGENT_EFFORT and an effort option for mod forks, and bring the Monitor tool to Bedrock, Vertex and Foundry. Fast mode for Opus 4.8 was deprecated October 30 and will be removed November 30. Anyone using Opus 4.8 fast mode must migrate to Opus 5.5 before November 30 or those requests will error rather than fall back. Coding Agents Anthropic Developer Experience Tools"
+        data-rank="6"
+        data-published="2026-10-28"
+        data-tags="GitHub,AI,Agents,Data"
+        data-source="GitHub Blog"
+        data-bucket="Industry &amp; Policy"
+        data-importance="High"
+        data-search="Octoverse: Commits, pushes, reach new highs in 2026 as developers build with agents GitHub Blog Industry &amp; Policy High GitHub’s 2026 Octoverse reports a record year of growth that reached every industry. In Simon Willison’s notes from the Universe keynote, merged pull requests tripled in under a year to 220 million per month, commits more than tripled to 7.38 billion per month, and new repositories doubled to 30.3 million per month. This is the clearest platform-wide data yet on agent-driven development volume, and it means more review, CI and supply-chain load for every team. GitHub AI Agents Data"
       >
         <div class="story-head">
-          <div class="rank">11</div>
+          <div class="rank">6</div>
+          <div>
+            <div class="story-meta-line">
+              <div class="source">🐙 GitHub Blog</div>
+              <div class="bucket">Industry &amp; Policy</div>
+              <div class="importance importance-high" aria-label="High importance">
+                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+                <span>High</span>
+              </div>
+            </div>
+            <div class="title"><a href="https://github.blog/news-insights/octoverse/octoverse-commits-pushes-reach-new-highs-in-2026-as-developers-build-with-agents/" target="_blank" rel="noopener">Octoverse: Commits, pushes, reach new highs in 2026 as developers build with agents</a></div>
+          </div>
+        </div>
+        <p class="tldr">GitHub’s 2026 Octoverse reports a record year of growth that reached every industry. In Simon Willison’s notes from the Universe keynote, merged pull requests tripled in under a year to 220 million per month, commits more than tripled to 7.38 billion per month, and new repositories doubled to 30.3 million per month.</p>
+        <p class="why">💡 Why it matters: This is the clearest platform-wide data yet on agent-driven development volume, and it means more review, CI and supply-chain load for every team.</p>
+        <div class="story-footer">
+          <span class="tag">GitHub</span>
+          <span class="tag">AI</span>
+          <span class="tag">Agents</span>
+          <span class="tag">Data</span>
+          <a href="https://github.blog/news-insights/octoverse/octoverse-commits-pushes-reach-new-highs-in-2026-as-developers-build-with-agents/" target="_blank" rel="noopener">Read full story →</a>
+          <span class="date">Oct 28</span>
+        </div>
+      </article>
+      <article
+        class="story-card"
+        data-rank="7"
+        data-published="2026-10-31"
+        data-tags="Anthropic,Coding Agents,Developer Experience,Enterprise"
+        data-source="Claude Code"
+        data-bucket="AI Coding Tools"
+        data-importance="High"
+        data-search="Claude Code retires Opus 4.8 fast mode on November 30 Claude Code AI Coding Tools High Claude Code 2.1.316 deprecates fast mode for Opus 4.8 as of October 30 and removes it on November 30; afterwards those requests return an error instead of falling back to standard Opus 4.8. Anthropic tells users to migrate to Opus 5.5, and the release also adds CLAUDE_CODE_SUBAGENT_EFFORT and pooled group budgets for gateways. Anyone pinning Opus 4.8 fast mode in scripts or settings has until the end of the month before requests start failing. Anthropic Coding Agents Developer Experience Enterprise"
+      >
+        <div class="story-head">
+          <div class="rank">7</div>
           <div>
             <div class="story-meta-line">
               <div class="source">⌨️ Claude Code</div>
               <div class="bucket">AI Coding Tools</div>
-              <div class="importance importance-medium" aria-label="Medium importance">
+              <div class="importance importance-high" aria-label="High importance">
                 <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                <span>Medium</span>
+                <span>High</span>
               </div>
             </div>
-            <div class="title"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.316" target="_blank" rel="noopener">Claude Code: idle compaction, subagent effort and Opus 4.8 fast-mode retirement</a></div>
+            <div class="title"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.316" target="_blank" rel="noopener">Claude Code retires Opus 4.8 fast mode on November 30</a></div>
           </div>
         </div>
-        <p class="tldr">Recent releases summarize idle 200K+ token conversations when the prompt cache has expired, add CLAUDE_CODE_SUBAGENT_EFFORT and an effort option for mod forks, and bring the Monitor tool to Bedrock, Vertex and Foundry. Fast mode for Opus 4.8 was deprecated October 30 and will be removed November 30.</p>
-        <p class="why">💡 Why it matters: Anyone using Opus 4.8 fast mode must migrate to Opus 5.5 before November 30 or those requests will error rather than fall back.</p>
+        <p class="tldr">Claude Code 2.1.316 deprecates fast mode for Opus 4.8 as of October 30 and removes it on November 30; afterwards those requests return an error instead of falling back to standard Opus 4.8. Anthropic tells users to migrate to Opus 5.5, and the release also adds CLAUDE_CODE_SUBAGENT_EFFORT and pooled group budgets for gateways.</p>
+        <p class="why">💡 Why it matters: Anyone pinning Opus 4.8 fast mode in scripts or settings has until the end of the month before requests start failing.</p>
         <div class="story-footer">
-          <span class="tag">Coding Agents</span>
           <span class="tag">Anthropic</span>
+          <span class="tag">Coding Agents</span>
           <span class="tag">Developer Experience</span>
-          <span class="tag">Tools</span>
+          <span class="tag">Enterprise</span>
           <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.316" target="_blank" rel="noopener">Read full story →</a>
           <span class="date">Oct 31</span>
         </div>
       </article>
       <article
         class="story-card"
-        data-rank="12"
+        data-rank="8"
         data-published="2026-10-27"
-        data-tags="Models,Google,Research,Agents"
+        data-tags="Google,Models,Research,AI"
         data-source="Google DeepMind"
         data-bucket="Models &amp; Research"
         data-importance="Medium"
-        data-search="We’re announcing Genie 4, our new world model for real-time interactive simulation Google DeepMind Models &amp; Research Medium Genie 4 is a world model built on Gemini capabilities that lets users steer a live simulation with natural language, such as moving the camera or changing the weather, and generates native audio on the fly. It is rolling out to trusted testers, with Google AI Ultra and early Gemini API access coming soon. Interactive simulation with sound is aimed at training environments for robots and agents as well as creative tools. Models Google Research Agents"
+        data-search="We’re announcing Genie 4, our new world model for real-time interactive simulation. Google DeepMind Models &amp; Research Medium Google DeepMind announced Genie 4, a world model with more realistic simulation and native audio that builds on Gemini models and lets users steer scenes in real time with natural language. It is rolling out to trusted testers, with Project Genie for AI Ultra subscribers and Gemini API and AI Studio early access coming soon. Interactive world models are positioned as training environments for robots and agents, not just a creative toy. Google Models Research AI"
       >
         <div class="story-head">
-          <div class="rank">12</div>
+          <div class="rank">8</div>
           <div>
             <div class="story-meta-line">
               <div class="source">🔷 Google DeepMind</div>
@@ -807,102 +667,67 @@
                 <span>Medium</span>
               </div>
             </div>
-            <div class="title"><a href="https://blog.google/innovation-and-ai/models-and-research/google-deepmind/introducing-genie-4/" target="_blank" rel="noopener">We’re announcing Genie 4, our new world model for real-time interactive simulation</a></div>
+            <div class="title"><a href="https://blog.google/innovation-and-ai/models-and-research/google-deepmind/introducing-genie-4/" target="_blank" rel="noopener">We’re announcing Genie 4, our new world model for real-time interactive simulation.</a></div>
           </div>
         </div>
-        <p class="tldr">Genie 4 is a world model built on Gemini capabilities that lets users steer a live simulation with natural language, such as moving the camera or changing the weather, and generates native audio on the fly. It is rolling out to trusted testers, with Google AI Ultra and early Gemini API access coming soon.</p>
-        <p class="why">💡 Why it matters: Interactive simulation with sound is aimed at training environments for robots and agents as well as creative tools.</p>
+        <p class="tldr">Google DeepMind announced Genie 4, a world model with more realistic simulation and native audio that builds on Gemini models and lets users steer scenes in real time with natural language. It is rolling out to trusted testers, with Project Genie for AI Ultra subscribers and Gemini API and AI Studio early access coming soon.</p>
+        <p class="why">💡 Why it matters: Interactive world models are positioned as training environments for robots and agents, not just a creative toy.</p>
         <div class="story-footer">
-          <span class="tag">Models</span>
           <span class="tag">Google</span>
+          <span class="tag">Models</span>
           <span class="tag">Research</span>
-          <span class="tag">Agents</span>
+          <span class="tag">AI</span>
           <a href="https://blog.google/innovation-and-ai/models-and-research/google-deepmind/introducing-genie-4/" target="_blank" rel="noopener">Read full story →</a>
           <span class="date">Oct 27</span>
         </div>
       </article>
       <article
         class="story-card"
-        data-rank="13"
-        data-published="2026-11-02"
-        data-tags="Anthropic,APIs,Agents,Developer Experience"
-        data-source="Anthropic"
-        data-bucket="Platform &amp; APIs"
+        data-rank="9"
+        data-published="2026-11-04"
+        data-tags="GitHub,Coding Agents,Mobile,Developer Experience"
+        data-source="GitHub Changelog"
+        data-bucket="AI Coding Tools"
         data-importance="Medium"
-        data-search="Make long-running agents faster with message threads Anthropic Platform &amp; APIs Medium Message threads, now in public beta on the Claude Platform, let agents send only new messages plus the previous response ID instead of resending the whole conversation. For 500k–1M token requests, median time to first token dropped about 35%, and token usage stays the same. Long-running coding and computer-use agents can cut latency by adding one API parameter, though threads expire five minutes after the last request. Anthropic APIs Agents Developer Experience"
+        data-search="GitHub Copilot is now available in Xcode’s coding assistant GitHub Changelog AI Coding Tools Medium GitHub Copilot now works inside Xcode’s built-in coding assistant in public preview, starting with the Xcode 27.3 beta on macOS Tahoe 26.6 or later. All Copilot plans are supported, and the existing GitHub Copilot for Xcode extension stays available as a separate option. Apple-platform developers can use their existing Copilot subscription in Xcode’s native assistant without switching tools. GitHub Coding Agents Mobile Developer Experience"
       >
         <div class="story-head">
-          <div class="rank">13</div>
+          <div class="rank">9</div>
           <div>
             <div class="story-meta-line">
-              <div class="source">🟠 Anthropic</div>
-              <div class="bucket">Platform &amp; APIs</div>
+              <div class="source">🐙 GitHub Changelog</div>
+              <div class="bucket">AI Coding Tools</div>
               <div class="importance importance-medium" aria-label="Medium importance">
                 <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
                 <span>Medium</span>
               </div>
             </div>
-            <div class="title"><a href="https://claude.com/blog/message-threads" target="_blank" rel="noopener">Make long-running agents faster with message threads</a></div>
+            <div class="title"><a href="https://github.blog/changelog/2026-11-04-github-copilot-is-now-available-in-xcodes-coding-assistant" target="_blank" rel="noopener">GitHub Copilot is now available in Xcode’s coding assistant</a></div>
           </div>
         </div>
-        <p class="tldr">Message threads, now in public beta on the Claude Platform, let agents send only new messages plus the previous response ID instead of resending the whole conversation. For 500k–1M token requests, median time to first token dropped about 35%, and token usage stays the same.</p>
-        <p class="why">💡 Why it matters: Long-running coding and computer-use agents can cut latency by adding one API parameter, though threads expire five minutes after the last request.</p>
+        <p class="tldr">GitHub Copilot now works inside Xcode’s built-in coding assistant in public preview, starting with the Xcode 27.3 beta on macOS Tahoe 26.6 or later. All Copilot plans are supported, and the existing GitHub Copilot for Xcode extension stays available as a separate option.</p>
+        <p class="why">💡 Why it matters: Apple-platform developers can use their existing Copilot subscription in Xcode’s native assistant without switching tools.</p>
         <div class="story-footer">
-          <span class="tag">Anthropic</span>
-          <span class="tag">APIs</span>
-          <span class="tag">Agents</span>
+          <span class="tag">GitHub</span>
+          <span class="tag">Coding Agents</span>
+          <span class="tag">Mobile</span>
           <span class="tag">Developer Experience</span>
-          <a href="https://claude.com/blog/message-threads" target="_blank" rel="noopener">Read full story →</a>
-          <span class="date">Nov 2</span>
+          <a href="https://github.blog/changelog/2026-11-04-github-copilot-is-now-available-in-xcodes-coding-assistant" target="_blank" rel="noopener">Read full story →</a>
+          <span class="date">Nov 04</span>
         </div>
       </article>
       <article
         class="story-card"
-        data-rank="14"
-        data-published="2026-10-21"
-        data-tags="Anthropic,Agents,Productivity,Safety"
-        data-source="Anthropic"
-        data-bucket="Platform &amp; APIs"
-        data-importance="Medium"
-        data-search="Introducing Claude Duet Anthropic Platform &amp; APIs Medium Claude Duet is a research-preview app, built around Claude Opus 5.5, in which Claude acts as a proactive agent: it sends a morning brief, monitors connected apps and checks with you before acting. It is on iOS, Android and claude.ai by waitlist for Pro, Max and Ultra subscribers. It is Anthropic’s clearest move from reactive chat toward an always-on agent, with a follow-up safety post covering credential handling and prompt-injection defenses. Anthropic Agents Productivity Safety"
-      >
-        <div class="story-head">
-          <div class="rank">14</div>
-          <div>
-            <div class="story-meta-line">
-              <div class="source">🟠 Anthropic</div>
-              <div class="bucket">Platform &amp; APIs</div>
-              <div class="importance importance-medium" aria-label="Medium importance">
-                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                <span>Medium</span>
-              </div>
-            </div>
-            <div class="title"><a href="https://claude.com/blog/claude-duet" target="_blank" rel="noopener">Introducing Claude Duet</a></div>
-          </div>
-        </div>
-        <p class="tldr">Claude Duet is a research-preview app, built around Claude Opus 5.5, in which Claude acts as a proactive agent: it sends a morning brief, monitors connected apps and checks with you before acting. It is on iOS, Android and claude.ai by waitlist for Pro, Max and Ultra subscribers.</p>
-        <p class="why">💡 Why it matters: It is Anthropic’s clearest move from reactive chat toward an always-on agent, with a follow-up safety post covering credential handling and prompt-injection defenses.</p>
-        <div class="story-footer">
-          <span class="tag">Anthropic</span>
-          <span class="tag">Agents</span>
-          <span class="tag">Productivity</span>
-          <span class="tag">Safety</span>
-          <a href="https://claude.com/blog/claude-duet" target="_blank" rel="noopener">Read full story →</a>
-          <span class="date">Oct 21</span>
-        </div>
-      </article>
-      <article
-        class="story-card"
-        data-rank="15"
+        data-rank="10"
         data-published="2026-11-03"
         data-tags="GitHub,Coding Agents,Tools,Developer Experience"
         data-source="GitHub Changelog"
         data-bucket="AI Coding Tools"
         data-importance="Medium"
-        data-search="GitHub Copilot is now available in JetBrains Air GitHub Changelog AI Coding Tools Medium Developers can delegate coding tasks, guide execution and review results with GitHub Copilot inside JetBrains Air. The integration uses the Agent Client Protocol (ACP). ACP is making agent-to-editor integrations portable, so Copilot can run in agent-first environments beyond VS Code. GitHub Coding Agents Tools Developer Experience"
+        data-search="GitHub Copilot is now available in JetBrains Air GitHub Changelog AI Coding Tools Medium Copilot can now take delegated coding tasks inside JetBrains Air, where you guide execution and review results. The integration is built on the Agent Client Protocol (ACP). ACP-based integrations let one agent plug into multiple editors, which reduces lock-in to any single IDE. GitHub Coding Agents Tools Developer Experience"
       >
         <div class="story-head">
-          <div class="rank">15</div>
+          <div class="rank">10</div>
           <div>
             <div class="story-meta-line">
               <div class="source">🐙 GitHub Changelog</div>
@@ -915,99 +740,171 @@
             <div class="title"><a href="https://github.blog/changelog/2026-11-03-github-copilot-is-now-available-in-jetbrains-air" target="_blank" rel="noopener">GitHub Copilot is now available in JetBrains Air</a></div>
           </div>
         </div>
-        <p class="tldr">Developers can delegate coding tasks, guide execution and review results with GitHub Copilot inside JetBrains Air. The integration uses the Agent Client Protocol (ACP).</p>
-        <p class="why">💡 Why it matters: ACP is making agent-to-editor integrations portable, so Copilot can run in agent-first environments beyond VS Code.</p>
+        <p class="tldr">Copilot can now take delegated coding tasks inside JetBrains Air, where you guide execution and review results. The integration is built on the Agent Client Protocol (ACP).</p>
+        <p class="why">💡 Why it matters: ACP-based integrations let one agent plug into multiple editors, which reduces lock-in to any single IDE.</p>
         <div class="story-footer">
           <span class="tag">GitHub</span>
           <span class="tag">Coding Agents</span>
           <span class="tag">Tools</span>
           <span class="tag">Developer Experience</span>
           <a href="https://github.blog/changelog/2026-11-03-github-copilot-is-now-available-in-jetbrains-air" target="_blank" rel="noopener">Read full story →</a>
-          <span class="date">Nov 3</span>
+          <span class="date">Nov 03</span>
         </div>
       </article>
       <article
         class="story-card"
-        data-rank="16"
+        data-rank="11"
         data-published="2026-11-03"
-        data-tags="GitHub,Coding Agents,DevOps,Tools"
-        data-source="GitHub Changelog"
+        data-tags="Anthropic,Coding Agents,Enterprise,Security,Developer Experience"
+        data-source="Claude Code"
         data-bucket="AI Coding Tools"
-        data-importance="Low"
-        data-search="Dependabot version updates support Agent Package Manager GitHub Changelog AI Coding Tools Low Dependabot now opens pull requests to keep AI agent skills, prompts and instructions managed with Agent Package Manager (APM) up to date. Agent configuration is becoming versioned dependencies, so it needs the same update hygiene as code libraries. GitHub Coding Agents DevOps Tools"
-      >
-        <div class="story-head">
-          <div class="rank">16</div>
-          <div>
-            <div class="story-meta-line">
-              <div class="source">🐙 GitHub Changelog</div>
-              <div class="bucket">AI Coding Tools</div>
-              <div class="importance importance-low" aria-label="Low importance">
-                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                <span>Low</span>
-              </div>
-            </div>
-            <div class="title"><a href="https://github.blog/changelog/2026-11-03-dependabot-version-updates-support-agent-package-manager" target="_blank" rel="noopener">Dependabot version updates support Agent Package Manager</a></div>
-          </div>
-        </div>
-        <p class="tldr">Dependabot now opens pull requests to keep AI agent skills, prompts and instructions managed with Agent Package Manager (APM) up to date.</p>
-        <p class="why">💡 Why it matters: Agent configuration is becoming versioned dependencies, so it needs the same update hygiene as code libraries.</p>
-        <div class="story-footer">
-          <span class="tag">GitHub</span>
-          <span class="tag">Coding Agents</span>
-          <span class="tag">DevOps</span>
-          <span class="tag">Tools</span>
-          <a href="https://github.blog/changelog/2026-11-03-dependabot-version-updates-support-agent-package-manager" target="_blank" rel="noopener">Read full story →</a>
-          <span class="date">Nov 3</span>
-        </div>
-      </article>
-      <article
-        class="story-card"
-        data-rank="17"
-        data-published="2026-10-28"
-        data-tags="GitHub,Agents,Developer Experience,Data"
-        data-source="GitHub Blog"
-        data-bucket="Industry &amp; Policy"
         data-importance="Medium"
-        data-search="Octoverse: Commits, pushes, reach new highs in 2026 as developers build with agents GitHub Blog Industry &amp; Policy Medium GitHub’s 2026 Octoverse reports record commits and pushes across every industry as developers build with agents. Figures shown at Universe, as relayed by Simon Willison, put merged pull requests at roughly 220 million, tripled in under a year. It is large-scale evidence that agentic engineering is already reshaping the volume of code and review work platforms must absorb. GitHub Agents Developer Experience Data"
+        data-search="Claude Code adds enterprise gateway budgets, cost reporting and stricter write controls Claude Code AI Coding Tools Medium Releases 2.1.314 to 2.1.318 add permissions.blockWritesOutsideWorkingDirectories, a cost-report endpoint and pooled group budgets for the Claude apps gateway, and idle compaction for 200K+ token conversations in VS Code and Claude Desktop. They also add an Agent SDK hook option that blocks an action when its callback fails and a prompt before account emails are sent over the network. Platform teams get spend controls and tighter guardrails for rolling Claude Code out across an organization. Anthropic Coding Agents Enterprise Security Developer Experience"
       >
         <div class="story-head">
-          <div class="rank">17</div>
+          <div class="rank">11</div>
           <div>
             <div class="story-meta-line">
-              <div class="source">🐙 GitHub Blog</div>
-              <div class="bucket">Industry &amp; Policy</div>
+              <div class="source">⌨️ Claude Code</div>
+              <div class="bucket">AI Coding Tools</div>
               <div class="importance importance-medium" aria-label="Medium importance">
                 <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
                 <span>Medium</span>
               </div>
             </div>
-            <div class="title"><a href="https://github.blog/news-insights/octoverse/octoverse-commits-pushes-reach-new-highs-in-2026-as-developers-build-with-agents/" target="_blank" rel="noopener">Octoverse: Commits, pushes, reach new highs in 2026 as developers build with agents</a></div>
+            <div class="title"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.317" target="_blank" rel="noopener">Claude Code adds enterprise gateway budgets, cost reporting and stricter write controls</a></div>
           </div>
         </div>
-        <p class="tldr">GitHub’s 2026 Octoverse reports record commits and pushes across every industry as developers build with agents. Figures shown at Universe, as relayed by Simon Willison, put merged pull requests at roughly 220 million, tripled in under a year.</p>
-        <p class="why">💡 Why it matters: It is large-scale evidence that agentic engineering is already reshaping the volume of code and review work platforms must absorb.</p>
+        <p class="tldr">Releases 2.1.314 to 2.1.318 add permissions.blockWritesOutsideWorkingDirectories, a cost-report endpoint and pooled group budgets for the Claude apps gateway, and idle compaction for 200K+ token conversations in VS Code and Claude Desktop. They also add an Agent SDK hook option that blocks an action when its callback fails and a prompt before account emails are sent over the network.</p>
+        <p class="why">💡 Why it matters: Platform teams get spend controls and tighter guardrails for rolling Claude Code out across an organization.</p>
         <div class="story-footer">
-          <span class="tag">GitHub</span>
-          <span class="tag">Agents</span>
+          <span class="tag">Anthropic</span>
+          <span class="tag">Coding Agents</span>
+          <span class="tag">Enterprise</span>
+          <span class="tag">Security</span>
           <span class="tag">Developer Experience</span>
-          <span class="tag">Data</span>
-          <a href="https://github.blog/news-insights/octoverse/octoverse-commits-pushes-reach-new-highs-in-2026-as-developers-build-with-agents/" target="_blank" rel="noopener">Read full story →</a>
-          <span class="date">Oct 28</span>
+          <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.317" target="_blank" rel="noopener">Read full story →</a>
+          <span class="date">Nov 03</span>
         </div>
       </article>
       <article
         class="story-card"
-        data-rank="18"
+        data-rank="12"
+        data-published="2026-11-04"
+        data-tags="OpenAI,Coding Agents,Startups,Tools"
+        data-source="OpenAI"
+        data-bucket="AI Coding Tools"
+        data-importance="Medium"
+        data-search="OpenAI to acquire Pierre Computer Company, Inc. OpenAI AI Coding Tools Medium OpenAI will acquire Pierre Computer Company to expand Codex’s tools for building, understanding and reviewing code. The announcement drew several hundred points on Hacker News. It signals that Codex is being extended beyond code generation into review and comprehension tooling. OpenAI Coding Agents Startups Tools"
+      >
+        <div class="story-head">
+          <div class="rank">12</div>
+          <div>
+            <div class="story-meta-line">
+              <div class="source">🟢 OpenAI</div>
+              <div class="bucket">AI Coding Tools</div>
+              <div class="importance importance-medium" aria-label="Medium importance">
+                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+                <span>Medium</span>
+              </div>
+            </div>
+            <div class="title"><a href="https://openai.com/index/openai-to-acquire-pierre" target="_blank" rel="noopener">OpenAI to acquire Pierre Computer Company, Inc.</a></div>
+          </div>
+        </div>
+        <p class="tldr">OpenAI will acquire Pierre Computer Company to expand Codex’s tools for building, understanding and reviewing code. The announcement drew several hundred points on Hacker News.</p>
+        <p class="why">💡 Why it matters: It signals that Codex is being extended beyond code generation into review and comprehension tooling.</p>
+        <div class="story-footer">
+          <span class="tag">OpenAI</span>
+          <span class="tag">Coding Agents</span>
+          <span class="tag">Startups</span>
+          <span class="tag">Tools</span>
+          <a href="https://openai.com/index/openai-to-acquire-pierre" target="_blank" rel="noopener">Read full story →</a>
+          <span class="date">Nov 04</span>
+        </div>
+      </article>
+      <article
+        class="story-card"
+        data-rank="13"
+        data-published="2026-11-04"
+        data-tags="Startups,Coding Agents,Agents,Tools"
+        data-source="TechCrunch"
+        data-bucket="AI Coding Tools"
+        data-importance="Medium"
+        data-search="Meta acquires AI coding startup Conductor TechCrunch AI Coding Tools Medium Meta acquired Conductor, a 2024-founded startup that lets engineers run multiple coding agents in parallel workspaces. Meta confirmed the deal without details, and Conductor’s founder promised something new by early next year. Another major lab is buying its way into agent-orchestration tooling, following a week of similar moves. Startups Coding Agents Agents Tools"
+      >
+        <div class="story-head">
+          <div class="rank">13</div>
+          <div>
+            <div class="story-meta-line">
+              <div class="source">📰 TechCrunch</div>
+              <div class="bucket">AI Coding Tools</div>
+              <div class="importance importance-medium" aria-label="Medium importance">
+                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+                <span>Medium</span>
+              </div>
+            </div>
+            <div class="title"><a href="https://techcrunch.com/2026/11/04/meta-acquires-ai-coding-startup-conductor/" target="_blank" rel="noopener">Meta acquires AI coding startup Conductor</a></div>
+          </div>
+        </div>
+        <p class="tldr">Meta acquired Conductor, a 2024-founded startup that lets engineers run multiple coding agents in parallel workspaces. Meta confirmed the deal without details, and Conductor’s founder promised something new by early next year.</p>
+        <p class="why">💡 Why it matters: Another major lab is buying its way into agent-orchestration tooling, following a week of similar moves.</p>
+        <div class="story-footer">
+          <span class="tag">Startups</span>
+          <span class="tag">Coding Agents</span>
+          <span class="tag">Agents</span>
+          <span class="tag">Tools</span>
+          <a href="https://techcrunch.com/2026/11/04/meta-acquires-ai-coding-startup-conductor/" target="_blank" rel="noopener">Read full story →</a>
+          <span class="date">Nov 04</span>
+        </div>
+      </article>
+      <article
+        class="story-card"
+        data-rank="14"
+        data-published="2026-10-22"
+        data-tags="Anthropic,Google,Cloud,APIs,Enterprise"
+        data-source="Anthropic"
+        data-bucket="Platform &amp; APIs"
+        data-importance="Medium"
+        data-search="The full Claude Platform, available on Google Cloud Anthropic Platform &amp; APIs Medium Claude Models on Google Cloud (Anthropic managed) is generally available, bringing the full Claude Platform to Google Cloud with IAM credentials, one Google Cloud invoice and commitment drawdown. New features and betas ship the same day as on the native platform, with US and Global endpoints, while the Google-managed offering remains. Teams standardized on Google Cloud can use every Claude API feature without a separate vendor contract. Anthropic Google Cloud APIs Enterprise"
+      >
+        <div class="story-head">
+          <div class="rank">14</div>
+          <div>
+            <div class="story-meta-line">
+              <div class="source">🟠 Anthropic</div>
+              <div class="bucket">Platform &amp; APIs</div>
+              <div class="importance importance-medium" aria-label="Medium importance">
+                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+                <span>Medium</span>
+              </div>
+            </div>
+            <div class="title"><a href="https://claude.com/blog/claude-models-on-google-cloud-anthropic-managed" target="_blank" rel="noopener">The full Claude Platform, available on Google Cloud</a></div>
+          </div>
+        </div>
+        <p class="tldr">Claude Models on Google Cloud (Anthropic managed) is generally available, bringing the full Claude Platform to Google Cloud with IAM credentials, one Google Cloud invoice and commitment drawdown. New features and betas ship the same day as on the native platform, with US and Global endpoints, while the Google-managed offering remains.</p>
+        <p class="why">💡 Why it matters: Teams standardized on Google Cloud can use every Claude API feature without a separate vendor contract.</p>
+        <div class="story-footer">
+          <span class="tag">Anthropic</span>
+          <span class="tag">Google</span>
+          <span class="tag">Cloud</span>
+          <span class="tag">APIs</span>
+          <span class="tag">Enterprise</span>
+          <a href="https://claude.com/blog/claude-models-on-google-cloud-anthropic-managed" target="_blank" rel="noopener">Read full story →</a>
+          <span class="date">Oct 22</span>
+        </div>
+      </article>
+      <article
+        class="story-card"
+        data-rank="15"
         data-published="2026-10-29"
-        data-tags="Azure,Agents,Cloud,Microsoft"
+        data-tags="Azure,Microsoft,Agents,APIs,Developer Experience"
         data-source="Microsoft Developer"
         data-bucket="Platform &amp; APIs"
         data-importance="Medium"
-        data-search="Generally Available: Azure MCP Server 3.0 Microsoft Developer Platform &amp; APIs Medium Azure MCP Server 3.0 is generally available, expanding how AI agents and developer tools interact with Azure through the Model Context Protocol. The release adds new capabilities including infrastructure-as-code support. A GA, first-party MCP server gives agent builders a supported way to operate Azure resources from coding agents. Azure Agents Cloud Microsoft"
+        data-search="Generally Available: Azure MCP Server 3.0 Microsoft Developer Platform &amp; APIs Medium Azure MCP Server 3.0 is generally available, expanding how AI agents and developer tools interact with Azure through the open Model Context Protocol. The release adds new and expanded capabilities, including infrastructure-as-code tooling. A GA MCP server for Azure gives coding agents a supported way to inspect and change cloud resources. Azure Microsoft Agents APIs Developer Experience"
       >
         <div class="story-head">
-          <div class="rank">18</div>
+          <div class="rank">15</div>
           <div>
             <div class="story-meta-line">
               <div class="source">🪟 Microsoft Developer</div>
@@ -1020,29 +917,205 @@
             <div class="title"><a href="https://azure.microsoft.com/updates?id=578662" target="_blank" rel="noopener">Generally Available: Azure MCP Server 3.0</a></div>
           </div>
         </div>
-        <p class="tldr">Azure MCP Server 3.0 is generally available, expanding how AI agents and developer tools interact with Azure through the Model Context Protocol. The release adds new capabilities including infrastructure-as-code support.</p>
-        <p class="why">💡 Why it matters: A GA, first-party MCP server gives agent builders a supported way to operate Azure resources from coding agents.</p>
+        <p class="tldr">Azure MCP Server 3.0 is generally available, expanding how AI agents and developer tools interact with Azure through the open Model Context Protocol. The release adds new and expanded capabilities, including infrastructure-as-code tooling.</p>
+        <p class="why">💡 Why it matters: A GA MCP server for Azure gives coding agents a supported way to inspect and change cloud resources.</p>
         <div class="story-footer">
           <span class="tag">Azure</span>
-          <span class="tag">Agents</span>
-          <span class="tag">Cloud</span>
           <span class="tag">Microsoft</span>
+          <span class="tag">Agents</span>
+          <span class="tag">APIs</span>
+          <span class="tag">Developer Experience</span>
           <a href="https://azure.microsoft.com/updates?id=578662" target="_blank" rel="noopener">Read full story →</a>
           <span class="date">Oct 29</span>
         </div>
       </article>
       <article
         class="story-card"
+        data-rank="16"
+        data-published="2026-11-03"
+        data-tags="Anthropic,Research,Safety,Models"
+        data-source="TechCrunch"
+        data-bucket="Models &amp; Research"
+        data-importance="Medium"
+        data-search="Anthropic is working on a system to prove AI models’ identity TechCrunch Models &amp; Research Medium Anthropic is building FlashProve, an open source system for “provable inference” that cryptographically proves an output came from a specific model. Labs would publish a fingerprint per model that does not reveal weights, so users could catch a secretly swapped cheaper model. Verifiable model identity would let customers and auditors check what they are actually paying for and relying on. Anthropic Research Safety Models"
+      >
+        <div class="story-head">
+          <div class="rank">16</div>
+          <div>
+            <div class="story-meta-line">
+              <div class="source">📰 TechCrunch</div>
+              <div class="bucket">Models &amp; Research</div>
+              <div class="importance importance-medium" aria-label="Medium importance">
+                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+                <span>Medium</span>
+              </div>
+            </div>
+            <div class="title"><a href="https://techcrunch.com/2026/11/03/anthropic-is-working-on-a-system-to-prove-ai-models-identity/" target="_blank" rel="noopener">Anthropic is working on a system to prove AI models’ identity</a></div>
+          </div>
+        </div>
+        <p class="tldr">Anthropic is building FlashProve, an open source system for “provable inference” that cryptographically proves an output came from a specific model. Labs would publish a fingerprint per model that does not reveal weights, so users could catch a secretly swapped cheaper model.</p>
+        <p class="why">💡 Why it matters: Verifiable model identity would let customers and auditors check what they are actually paying for and relying on.</p>
+        <div class="story-footer">
+          <span class="tag">Anthropic</span>
+          <span class="tag">Research</span>
+          <span class="tag">Safety</span>
+          <span class="tag">Models</span>
+          <a href="https://techcrunch.com/2026/11/03/anthropic-is-working-on-a-system-to-prove-ai-models-identity/" target="_blank" rel="noopener">Read full story →</a>
+          <span class="date">Nov 03</span>
+        </div>
+      </article>
+      <article
+        class="story-card"
+        data-rank="17"
+        data-published="2026-11-03"
+        data-tags="Anthropic,Infrastructure,Startups,AI"
+        data-source="TechCrunch"
+        data-bucket="Industry &amp; Policy"
+        data-importance="Medium"
+        data-search="Anthropic is still grappling with the economics of compute TechCrunch Industry &amp; Policy Medium An update to Anthropic’s S-1 shows quarterly revenue of $17 billion, up from $11.5 billion, but compute rose to 58% of revenue from 48%. Revenue per compute dollar peaked just above 2x and fell to 1.72x. Compute costs are outpacing revenue growth at a leading lab, which bears on future API pricing and capacity. Anthropic Infrastructure Startups AI"
+      >
+        <div class="story-head">
+          <div class="rank">17</div>
+          <div>
+            <div class="story-meta-line">
+              <div class="source">📰 TechCrunch</div>
+              <div class="bucket">Industry &amp; Policy</div>
+              <div class="importance importance-medium" aria-label="Medium importance">
+                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+                <span>Medium</span>
+              </div>
+            </div>
+            <div class="title"><a href="https://techcrunch.com/2026/11/03/anthropic-is-still-grappling-with-the-economics-of-compute/" target="_blank" rel="noopener">Anthropic is still grappling with the economics of compute</a></div>
+          </div>
+        </div>
+        <p class="tldr">An update to Anthropic’s S-1 shows quarterly revenue of $17 billion, up from $11.5 billion, but compute rose to 58% of revenue from 48%. Revenue per compute dollar peaked just above 2x and fell to 1.72x.</p>
+        <p class="why">💡 Why it matters: Compute costs are outpacing revenue growth at a leading lab, which bears on future API pricing and capacity.</p>
+        <div class="story-footer">
+          <span class="tag">Anthropic</span>
+          <span class="tag">Infrastructure</span>
+          <span class="tag">Startups</span>
+          <span class="tag">AI</span>
+          <a href="https://techcrunch.com/2026/11/03/anthropic-is-still-grappling-with-the-economics-of-compute/" target="_blank" rel="noopener">Read full story →</a>
+          <span class="date">Nov 03</span>
+        </div>
+      </article>
+      <article
+        class="story-card"
+        data-rank="18"
+        data-published="2026-10-29"
+        data-tags="OpenAI,Safety,Policy,AI"
+        data-source="OpenAI"
+        data-bucket="Industry &amp; Policy"
+        data-importance="Medium"
+        data-search="An updated Model Spec for more capable and beneficial AI OpenAI Industry &amp; Policy Medium OpenAI updated its Model Spec around five core values meant to guide more capable AI toward sound judgment, human agency and faithfulness to human intent. The Model Spec is the public statement of how OpenAI models are supposed to behave, which shapes what builders can expect from them. OpenAI Safety Policy AI"
+      >
+        <div class="story-head">
+          <div class="rank">18</div>
+          <div>
+            <div class="story-meta-line">
+              <div class="source">🟢 OpenAI</div>
+              <div class="bucket">Industry &amp; Policy</div>
+              <div class="importance importance-medium" aria-label="Medium importance">
+                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+                <span>Medium</span>
+              </div>
+            </div>
+            <div class="title"><a href="https://openai.com/index/updated-model-spec" target="_blank" rel="noopener">An updated Model Spec for more capable and beneficial AI</a></div>
+          </div>
+        </div>
+        <p class="tldr">OpenAI updated its Model Spec around five core values meant to guide more capable AI toward sound judgment, human agency and faithfulness to human intent.</p>
+        <p class="why">💡 Why it matters: The Model Spec is the public statement of how OpenAI models are supposed to behave, which shapes what builders can expect from them.</p>
+        <div class="story-footer">
+          <span class="tag">OpenAI</span>
+          <span class="tag">Safety</span>
+          <span class="tag">Policy</span>
+          <span class="tag">AI</span>
+          <a href="https://openai.com/index/updated-model-spec" target="_blank" rel="noopener">Read full story →</a>
+          <span class="date">Oct 29</span>
+        </div>
+      </article>
+      <article
+        class="story-card"
         data-rank="19"
+        data-published="2026-10-23"
+        data-tags="Anthropic,Agents,Safety,Security"
+        data-source="Anthropic"
+        data-bucket="Industry &amp; Policy"
+        data-importance="Medium"
+        data-search="Claude Duet Safety, Privacy, and Security Anthropic Industry &amp; Policy Medium Claude Duet is a research-preview agent that uses a cloud computer, keeps running after you close the app, and can read your inbox, draft replies and book things. Anthropic describes layered protections, including a new classifier that checks drafted messages before they go out and a design where Duet never sees passwords, cookies or sign-in tokens. It is a detailed example of the safeguards an always-on agent with account access needs before it can be trusted. Anthropic Agents Safety Security"
+      >
+        <div class="story-head">
+          <div class="rank">19</div>
+          <div>
+            <div class="story-meta-line">
+              <div class="source">🟠 Anthropic</div>
+              <div class="bucket">Industry &amp; Policy</div>
+              <div class="importance importance-medium" aria-label="Medium importance">
+                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+                <span>Medium</span>
+              </div>
+            </div>
+            <div class="title"><a href="https://claude.com/blog/claude-duet-safety-privacy-and-security" target="_blank" rel="noopener">Claude Duet Safety, Privacy, and Security</a></div>
+          </div>
+        </div>
+        <p class="tldr">Claude Duet is a research-preview agent that uses a cloud computer, keeps running after you close the app, and can read your inbox, draft replies and book things. Anthropic describes layered protections, including a new classifier that checks drafted messages before they go out and a design where Duet never sees passwords, cookies or sign-in tokens.</p>
+        <p class="why">💡 Why it matters: It is a detailed example of the safeguards an always-on agent with account access needs before it can be trusted.</p>
+        <div class="story-footer">
+          <span class="tag">Anthropic</span>
+          <span class="tag">Agents</span>
+          <span class="tag">Safety</span>
+          <span class="tag">Security</span>
+          <a href="https://claude.com/blog/claude-duet-safety-privacy-and-security" target="_blank" rel="noopener">Read full story →</a>
+          <span class="date">Oct 23</span>
+        </div>
+      </article>
+      <article
+        class="story-card"
+        data-rank="20"
+        data-published="2026-10-22"
+        data-tags="Anthropic,Agents,LLMs,Tools"
+        data-source="Anthropic"
+        data-bucket="AI Engineering"
+        data-importance="Medium"
+        data-search="Building agents: When to fold subagents into your main agent loop Anthropic AI Engineering Medium Anthropic argues that on the Claude Platform, using fewer subagents and relying on progressively disclosed context and tools can improve quality while reducing cost. The post is a best-practices guide to deciding when a subagent is worth its overhead. It challenges the reflex to split every task across subagents, a design choice that directly affects agent cost and reliability. Anthropic Agents LLMs Tools"
+      >
+        <div class="story-head">
+          <div class="rank">20</div>
+          <div>
+            <div class="story-meta-line">
+              <div class="source">🟠 Anthropic</div>
+              <div class="bucket">AI Engineering</div>
+              <div class="importance importance-medium" aria-label="Medium importance">
+                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+                <span>Medium</span>
+              </div>
+            </div>
+            <div class="title"><a href="https://claude.com/blog/building-agents-when-to-fold-subagents-into-your-main-agent-loop" target="_blank" rel="noopener">Building agents: When to fold subagents into your main agent loop</a></div>
+          </div>
+        </div>
+        <p class="tldr">Anthropic argues that on the Claude Platform, using fewer subagents and relying on progressively disclosed context and tools can improve quality while reducing cost. The post is a best-practices guide to deciding when a subagent is worth its overhead.</p>
+        <p class="why">💡 Why it matters: It challenges the reflex to split every task across subagents, a design choice that directly affects agent cost and reliability.</p>
+        <div class="story-footer">
+          <span class="tag">Anthropic</span>
+          <span class="tag">Agents</span>
+          <span class="tag">LLMs</span>
+          <span class="tag">Tools</span>
+          <a href="https://claude.com/blog/building-agents-when-to-fold-subagents-into-your-main-agent-loop" target="_blank" rel="noopener">Read full story →</a>
+          <span class="date">Oct 22</span>
+        </div>
+      </article>
+      <article
+        class="story-card"
+        data-rank="21"
         data-published="2026-11-02"
         data-tags="OpenAI,Infrastructure,Coding Agents,DevOps"
         data-source="OpenAI"
         data-bucket="AI Engineering"
         data-importance="Medium"
-        data-search="Scaling Git at OpenAI OpenAI AI Engineering Medium OpenAI describes Pando, a Git-compatible backend it built for the scale of development that Codex makes possible. Agent-driven commit and clone volume is outgrowing stock Git hosting, and labs are building custom backends to cope. OpenAI Infrastructure Coding Agents DevOps"
+        data-search="Scaling Git at OpenAI OpenAI AI Engineering Medium OpenAI describes Pando, a Git-compatible backend it built for the scale of development that Codex makes possible. Agents that open pull requests and branches at machine speed strain ordinary Git hosting, and this shows one lab’s answer. OpenAI Infrastructure Coding Agents DevOps"
       >
         <div class="story-head">
-          <div class="rank">19</div>
+          <div class="rank">21</div>
           <div>
             <div class="story-meta-line">
               <div class="source">🟢 OpenAI</div>
@@ -1056,95 +1129,25 @@
           </div>
         </div>
         <p class="tldr">OpenAI describes Pando, a Git-compatible backend it built for the scale of development that Codex makes possible.</p>
-        <p class="why">💡 Why it matters: Agent-driven commit and clone volume is outgrowing stock Git hosting, and labs are building custom backends to cope.</p>
+        <p class="why">💡 Why it matters: Agents that open pull requests and branches at machine speed strain ordinary Git hosting, and this shows one lab’s answer.</p>
         <div class="story-footer">
           <span class="tag">OpenAI</span>
           <span class="tag">Infrastructure</span>
           <span class="tag">Coding Agents</span>
           <span class="tag">DevOps</span>
           <a href="https://openai.com/index/scaling-git-at-openai" target="_blank" rel="noopener">Read full story →</a>
-          <span class="date">Nov 2</span>
-        </div>
-      </article>
-      <article
-        class="story-card"
-        data-rank="20"
-        data-published="2026-10-21"
-        data-tags="GitHub,Infrastructure,Azure,DevOps"
-        data-source="GitHub Blog"
-        data-bucket="AI Engineering"
-        data-importance="Medium"
-        data-search="The bridge to agent-scale Git infrastructure GitHub Blog AI Engineering Medium GitHub says a copy of 99.99999% of its repositories now lives in Azure. It explains how per-reference quorums will move the rest and how object storage lets reads scale independently. A second major Git platform describing a re-architecture for agents reinforces that agent traffic is a distinct scaling problem. GitHub Infrastructure Azure DevOps"
-      >
-        <div class="story-head">
-          <div class="rank">20</div>
-          <div>
-            <div class="story-meta-line">
-              <div class="source">🐙 GitHub Blog</div>
-              <div class="bucket">AI Engineering</div>
-              <div class="importance importance-medium" aria-label="Medium importance">
-                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                <span>Medium</span>
-              </div>
-            </div>
-            <div class="title"><a href="https://github.blog/engineering/architecture-optimization/the-bridge-to-agent-scale-git-infrastructure/" target="_blank" rel="noopener">The bridge to agent-scale Git infrastructure</a></div>
-          </div>
-        </div>
-        <p class="tldr">GitHub says a copy of 99.99999% of its repositories now lives in Azure. It explains how per-reference quorums will move the rest and how object storage lets reads scale independently.</p>
-        <p class="why">💡 Why it matters: A second major Git platform describing a re-architecture for agents reinforces that agent traffic is a distinct scaling problem.</p>
-        <div class="story-footer">
-          <span class="tag">GitHub</span>
-          <span class="tag">Infrastructure</span>
-          <span class="tag">Azure</span>
-          <span class="tag">DevOps</span>
-          <a href="https://github.blog/engineering/architecture-optimization/the-bridge-to-agent-scale-git-infrastructure/" target="_blank" rel="noopener">Read full story →</a>
-          <span class="date">Oct 21</span>
-        </div>
-      </article>
-      <article
-        class="story-card"
-        data-rank="21"
-        data-published="2026-10-22"
-        data-tags="Anthropic,Agents,LLMs,Developer Experience"
-        data-source="Anthropic"
-        data-bucket="AI Engineering"
-        data-importance="Medium"
-        data-search="Building agents: When to fold subagents into your main agent loop Anthropic AI Engineering Medium Anthropic argues that on Claude Platform, using fewer subagents in favor of progressively disclosed context and tools can improve quality while reducing cost and latency. The post covers when and how to migrate. It is practical guidance to simplify multi-agent designs before paying for coordination overhead. Anthropic Agents LLMs Developer Experience"
-      >
-        <div class="story-head">
-          <div class="rank">21</div>
-          <div>
-            <div class="story-meta-line">
-              <div class="source">🟠 Anthropic</div>
-              <div class="bucket">AI Engineering</div>
-              <div class="importance importance-medium" aria-label="Medium importance">
-                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                <span>Medium</span>
-              </div>
-            </div>
-            <div class="title"><a href="https://claude.com/blog/building-agents-when-to-fold-subagents-into-your-main-agent-loop" target="_blank" rel="noopener">Building agents: When to fold subagents into your main agent loop</a></div>
-          </div>
-        </div>
-        <p class="tldr">Anthropic argues that on Claude Platform, using fewer subagents in favor of progressively disclosed context and tools can improve quality while reducing cost and latency. The post covers when and how to migrate.</p>
-        <p class="why">💡 Why it matters: It is practical guidance to simplify multi-agent designs before paying for coordination overhead.</p>
-        <div class="story-footer">
-          <span class="tag">Anthropic</span>
-          <span class="tag">Agents</span>
-          <span class="tag">LLMs</span>
-          <span class="tag">Developer Experience</span>
-          <a href="https://claude.com/blog/building-agents-when-to-fold-subagents-into-your-main-agent-loop" target="_blank" rel="noopener">Read full story →</a>
-          <span class="date">Oct 22</span>
+          <span class="date">Nov 02</span>
         </div>
       </article>
       <article
         class="story-card"
         data-rank="22"
         data-published="2026-10-31"
-        data-tags="Security,OpenAI,Agents,Web"
+        data-tags="Security,OpenAI,Web,LLMs"
         data-source="Simon Willison"
         data-bucket="AI Engineering"
         data-importance="Medium"
-        data-search="How We Took Over ChatGPT Accounts Simon Willison AI Engineering Medium Parameter Labs described an exploit against ChatGPT’s HTML previews, the artifacts-style feature that shows interactive custom HTML apps in a sandboxed iframe. Simon Willison stresses that such HTML must stay tightly sandboxed to avoid untrusted code reaching the user’s session. Anyone building artifact or preview features for model-generated HTML should treat sandbox boundaries as a primary attack surface. Security OpenAI Agents Web"
+        data-search="How We Took Over ChatGPT Accounts Simon Willison AI Engineering Medium Parameter Labs describe an exploit against ChatGPT’s HTML previews, the artifacts-style feature that shows custom HTML apps in a sandboxed iframe, that let them take over accounts. Simon Willison highlights it as a lesson in how fragile these sandboxes are. Anyone rendering model-generated HTML in an iframe should review the sandbox attributes and origin isolation they rely on. Security OpenAI Web LLMs"
       >
         <div class="story-head">
           <div class="rank">22</div>
@@ -1160,13 +1163,13 @@
             <div class="title"><a href="https://simonwillison.net/2026/Oct/31/how-we-took-over-chatgpt-accounts/" target="_blank" rel="noopener">How We Took Over ChatGPT Accounts</a></div>
           </div>
         </div>
-        <p class="tldr">Parameter Labs described an exploit against ChatGPT’s HTML previews, the artifacts-style feature that shows interactive custom HTML apps in a sandboxed iframe. Simon Willison stresses that such HTML must stay tightly sandboxed to avoid untrusted code reaching the user’s session.</p>
-        <p class="why">💡 Why it matters: Anyone building artifact or preview features for model-generated HTML should treat sandbox boundaries as a primary attack surface.</p>
+        <p class="tldr">Parameter Labs describe an exploit against ChatGPT’s HTML previews, the artifacts-style feature that shows custom HTML apps in a sandboxed iframe, that let them take over accounts. Simon Willison highlights it as a lesson in how fragile these sandboxes are.</p>
+        <p class="why">💡 Why it matters: Anyone rendering model-generated HTML in an iframe should review the sandbox attributes and origin isolation they rely on.</p>
         <div class="story-footer">
           <span class="tag">Security</span>
           <span class="tag">OpenAI</span>
-          <span class="tag">Agents</span>
           <span class="tag">Web</span>
+          <span class="tag">LLMs</span>
           <a href="https://simonwillison.net/2026/Oct/31/how-we-took-over-chatgpt-accounts/" target="_blank" rel="noopener">Read full story →</a>
           <span class="date">Oct 31</span>
         </div>
@@ -1174,85 +1177,15 @@
       <article
         class="story-card"
         data-rank="23"
-        data-published="2026-10-29"
-        data-tags="OpenAI,Safety,Agents,Research"
-        data-source="OpenAI"
-        data-bucket="Industry &amp; Policy"
-        data-importance="Medium"
-        data-search="How we detect frontier model misalignment OpenAI Industry &amp; Policy Medium OpenAI describes layered monitoring that detects frontier model misalignment and unauthorized agent behavior so responders can intervene before incidents escalate. It is a rare look at how a lab operationalizes agent oversight, a pattern enterprises deploying agents can borrow. OpenAI Safety Agents Research"
-      >
-        <div class="story-head">
-          <div class="rank">23</div>
-          <div>
-            <div class="story-meta-line">
-              <div class="source">🟢 OpenAI</div>
-              <div class="bucket">Industry &amp; Policy</div>
-              <div class="importance importance-medium" aria-label="Medium importance">
-                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                <span>Medium</span>
-              </div>
-            </div>
-            <div class="title"><a href="https://openai.com/index/how-we-detect-frontier-model-misalignment" target="_blank" rel="noopener">How we detect frontier model misalignment</a></div>
-          </div>
-        </div>
-        <p class="tldr">OpenAI describes layered monitoring that detects frontier model misalignment and unauthorized agent behavior so responders can intervene before incidents escalate.</p>
-        <p class="why">💡 Why it matters: It is a rare look at how a lab operationalizes agent oversight, a pattern enterprises deploying agents can borrow.</p>
-        <div class="story-footer">
-          <span class="tag">OpenAI</span>
-          <span class="tag">Safety</span>
-          <span class="tag">Agents</span>
-          <span class="tag">Research</span>
-          <a href="https://openai.com/index/how-we-detect-frontier-model-misalignment" target="_blank" rel="noopener">Read full story →</a>
-          <span class="date">Oct 29</span>
-        </div>
-      </article>
-      <article
-        class="story-card"
-        data-rank="24"
-        data-published="2026-11-03"
-        data-tags="Anthropic,Safety,Open Source,Research"
-        data-source="TechCrunch"
-        data-bucket="Industry &amp; Policy"
-        data-importance="Medium"
-        data-search="Anthropic is working on a system to prove AI models’ identity TechCrunch Industry &amp; Policy Medium Anthropic is building FlashProve, an open-source system for “provable inference” that cryptographically shows an output came from a specific model, even against the lab that runs it. It could expose secret swaps to a cheaper model or let third parties verify that a frontier model did a task. Verifiable model identity would let customers audit what they are paying for and trust claims that an AI model reviewed their work. Anthropic Safety Open Source Research"
-      >
-        <div class="story-head">
-          <div class="rank">24</div>
-          <div>
-            <div class="story-meta-line">
-              <div class="source">📰 TechCrunch</div>
-              <div class="bucket">Industry &amp; Policy</div>
-              <div class="importance importance-medium" aria-label="Medium importance">
-                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                <span>Medium</span>
-              </div>
-            </div>
-            <div class="title"><a href="https://techcrunch.com/2026/11/03/anthropic-is-working-on-a-system-to-prove-ai-models-identity/" target="_blank" rel="noopener">Anthropic is working on a system to prove AI models’ identity</a></div>
-          </div>
-        </div>
-        <p class="tldr">Anthropic is building FlashProve, an open-source system for “provable inference” that cryptographically shows an output came from a specific model, even against the lab that runs it. It could expose secret swaps to a cheaper model or let third parties verify that a frontier model did a task.</p>
-        <p class="why">💡 Why it matters: Verifiable model identity would let customers audit what they are paying for and trust claims that an AI model reviewed their work.</p>
-        <div class="story-footer">
-          <span class="tag">Anthropic</span>
-          <span class="tag">Safety</span>
-          <span class="tag">Open Source</span>
-          <span class="tag">Research</span>
-          <a href="https://techcrunch.com/2026/11/03/anthropic-is-working-on-a-system-to-prove-ai-models-identity/" target="_blank" rel="noopener">Read full story →</a>
-          <span class="date">Nov 3</span>
-        </div>
-      </article>
-      <article
-        class="story-card"
-        data-rank="25"
         data-published="2026-11-03"
         data-tags="Models,Open Source,Research,LLMs"
         data-source="Simon Willison"
         data-bucket="Models &amp; Research"
         data-importance="Medium"
-        data-search="Qwen 3.8 27B on my laptop can interpret model weights, too Simon Willison Models &amp; Research Medium A new paper, “Sparks of Weight-Space Programming,” found that frontier models, notably GPT-6 Astra, can interpret and modify raw neural-network weights. Simon Willison reproduces the interpretation result with Qwen 3.8 27B running locally. If small local models can read weights, interpretability experiments get cheap, though at least one rebuttal calls the paper’s framing misleading. Models Open Source Research LLMs"
+        data-search="Qwen 3.8 27B on my laptop can interpret model weights, too Simon Willison Models &amp; Research Medium A new paper, “Sparks of Weight-Space Programming”, found that frontier models, notably GPT-6 Astra, can read and write neural-network weights. Simon Willison shows that Qwen 3.8 27B running on his laptop can interpret model weights as well. A capability seen in frontier models showing up in a locally runnable open model is a useful signal for researchers on a short lag. Models Open Source Research LLMs"
       >
         <div class="story-head">
-          <div class="rank">25</div>
+          <div class="rank">23</div>
           <div>
             <div class="story-meta-line">
               <div class="source">✍️ Simon Willison</div>
@@ -1265,33 +1198,68 @@
             <div class="title"><a href="https://simonwillison.net/2026/Nov/3/qwen-can-interpret-model-weights/" target="_blank" rel="noopener">Qwen 3.8 27B on my laptop can interpret model weights, too</a></div>
           </div>
         </div>
-        <p class="tldr">A new paper, “Sparks of Weight-Space Programming,” found that frontier models, notably GPT-6 Astra, can interpret and modify raw neural-network weights. Simon Willison reproduces the interpretation result with Qwen 3.8 27B running locally.</p>
-        <p class="why">💡 Why it matters: If small local models can read weights, interpretability experiments get cheap, though at least one rebuttal calls the paper’s framing misleading.</p>
+        <p class="tldr">A new paper, “Sparks of Weight-Space Programming”, found that frontier models, notably GPT-6 Astra, can read and write neural-network weights. Simon Willison shows that Qwen 3.8 27B running on his laptop can interpret model weights as well.</p>
+        <p class="why">💡 Why it matters: A capability seen in frontier models showing up in a locally runnable open model is a useful signal for researchers on a short lag.</p>
         <div class="story-footer">
           <span class="tag">Models</span>
           <span class="tag">Open Source</span>
           <span class="tag">Research</span>
           <span class="tag">LLMs</span>
           <a href="https://simonwillison.net/2026/Nov/3/qwen-can-interpret-model-weights/" target="_blank" rel="noopener">Read full story →</a>
-          <span class="date">Nov 3</span>
+          <span class="date">Nov 03</span>
         </div>
       </article>
       <article
         class="story-card"
-        data-rank="26"
-        data-published="2026-10-22"
-        data-tags="Research,Anthropic,LLMs,Evals"
-        data-source="Anthropic"
+        data-rank="24"
+        data-published="2026-10-23"
+        data-tags="Models,Open Source,LLMs,APIs"
+        data-source="Simon Willison"
         data-bucket="Models &amp; Research"
         data-importance="Medium"
-        data-search="LLMs are making formal software verification feasible at a much larger scale Anthropic Models &amp; Research Medium Anthropic research argues that proving code is free of bugs through formal verification could become practical at much larger scale with LLM help. Machine-checked guarantees would be a stronger safeguard than testing for AI-written code. Research Anthropic LLMs Evals"
+        data-search="Introducing Kimi K3.1 Pro Simon Willison Models &amp; Research Medium Kimi K3.1 Pro arrived on the Kimi API on October 23 with a Highspeed variant that is 2–3x faster at twice the price, and Moonshot promised full weights by November 4. A Hacker News post that day links the model weights on Hugging Face. Another open-weight contender at the frontier gives builders more pricing leverage and self-hosting options. Models Open Source LLMs APIs"
       >
         <div class="story-head">
-          <div class="rank">26</div>
+          <div class="rank">24</div>
+          <div>
+            <div class="story-meta-line">
+              <div class="source">✍️ Simon Willison</div>
+              <div class="bucket">Models &amp; Research</div>
+              <div class="importance importance-medium" aria-label="Medium importance">
+                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+                <span>Medium</span>
+              </div>
+            </div>
+            <div class="title"><a href="https://simonwillison.net/2026/Oct/23/kimi-k31-pro/" target="_blank" rel="noopener">Introducing Kimi K3.1 Pro</a></div>
+          </div>
+        </div>
+        <p class="tldr">Kimi K3.1 Pro arrived on the Kimi API on October 23 with a Highspeed variant that is 2–3x faster at twice the price, and Moonshot promised full weights by November 4. A Hacker News post that day links the model weights on Hugging Face.</p>
+        <p class="why">💡 Why it matters: Another open-weight contender at the frontier gives builders more pricing leverage and self-hosting options.</p>
+        <div class="story-footer">
+          <span class="tag">Models</span>
+          <span class="tag">Open Source</span>
+          <span class="tag">LLMs</span>
+          <span class="tag">APIs</span>
+          <a href="https://simonwillison.net/2026/Oct/23/kimi-k31-pro/" target="_blank" rel="noopener">Read full story →</a>
+          <span class="date">Oct 23</span>
+        </div>
+      </article>
+      <article
+        class="story-card"
+        data-rank="25"
+        data-published="2026-10-22"
+        data-tags="Anthropic,Research,LLMs,Developer Experience"
+        data-source="Anthropic"
+        data-bucket="AI Engineering"
+        data-importance="Medium"
+        data-search="LLMs are making formal software verification feasible at a much larger scale Anthropic AI Engineering Medium Anthropic argues that we need ways to prove code is free of bugs, and that formal software verification could provide that guarantee. Its thesis is that LLMs are now making verification feasible at a much larger scale than before. If proofs become cheap to produce, they could become a practical check on AI-written code. Anthropic Research LLMs Developer Experience"
+      >
+        <div class="story-head">
+          <div class="rank">25</div>
           <div>
             <div class="story-meta-line">
               <div class="source">🟠 Anthropic</div>
-              <div class="bucket">Models &amp; Research</div>
+              <div class="bucket">AI Engineering</div>
               <div class="importance importance-medium" aria-label="Medium importance">
                 <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
                 <span>Medium</span>
@@ -1300,134 +1268,29 @@
             <div class="title"><a href="https://www.anthropic.com/research/formal-verification" target="_blank" rel="noopener">LLMs are making formal software verification feasible at a much larger scale</a></div>
           </div>
         </div>
-        <p class="tldr">Anthropic research argues that proving code is free of bugs through formal verification could become practical at much larger scale with LLM help.</p>
-        <p class="why">💡 Why it matters: Machine-checked guarantees would be a stronger safeguard than testing for AI-written code.</p>
+        <p class="tldr">Anthropic argues that we need ways to prove code is free of bugs, and that formal software verification could provide that guarantee. Its thesis is that LLMs are now making verification feasible at a much larger scale than before.</p>
+        <p class="why">💡 Why it matters: If proofs become cheap to produce, they could become a practical check on AI-written code.</p>
         <div class="story-footer">
-          <span class="tag">Research</span>
           <span class="tag">Anthropic</span>
+          <span class="tag">Research</span>
           <span class="tag">LLMs</span>
-          <span class="tag">Evals</span>
+          <span class="tag">Developer Experience</span>
           <a href="https://www.anthropic.com/research/formal-verification" target="_blank" rel="noopener">Read full story →</a>
           <span class="date">Oct 22</span>
         </div>
       </article>
       <article
         class="story-card"
-        data-rank="27"
-        data-published="2026-10-30"
-        data-tags="OpenAI,Policy,Web,Data"
-        data-source="OpenAI"
-        data-bucket="Industry &amp; Policy"
-        data-importance="Medium"
-        data-search="Making it easier for websites to express AI training preferences OpenAI Industry &amp; Policy Medium OpenAI will honor a shared robots.txt signal that lets website operators communicate their AI training preferences to participating providers. Site owners get a single standard signal to opt out of training, and publishers can see whether other providers sign on. OpenAI Policy Web Data"
-      >
-        <div class="story-head">
-          <div class="rank">27</div>
-          <div>
-            <div class="story-meta-line">
-              <div class="source">🟢 OpenAI</div>
-              <div class="bucket">Industry &amp; Policy</div>
-              <div class="importance importance-medium" aria-label="Medium importance">
-                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                <span>Medium</span>
-              </div>
-            </div>
-            <div class="title"><a href="https://openai.com/index/helping-websites-express-ai-training-preferences" target="_blank" rel="noopener">Making it easier for websites to express AI training preferences</a></div>
-          </div>
-        </div>
-        <p class="tldr">OpenAI will honor a shared robots.txt signal that lets website operators communicate their AI training preferences to participating providers.</p>
-        <p class="why">💡 Why it matters: Site owners get a single standard signal to opt out of training, and publishers can see whether other providers sign on.</p>
-        <div class="story-footer">
-          <span class="tag">OpenAI</span>
-          <span class="tag">Policy</span>
-          <span class="tag">Web</span>
-          <span class="tag">Data</span>
-          <a href="https://openai.com/index/helping-websites-express-ai-training-preferences" target="_blank" rel="noopener">Read full story →</a>
-          <span class="date">Oct 30</span>
-        </div>
-      </article>
-      <article
-        class="story-card"
-        data-rank="28"
-        data-published="2026-10-22"
-        data-tags="Anthropic,Open Source,Agents,Policy"
-        data-source="Simon Willison"
-        data-bucket="Industry &amp; Policy"
-        data-importance="Medium"
-        data-search="Donating Agent Skills to the Agentic AI Foundation Simon Willison Industry &amp; Policy Medium Anthropic is donating the Agent Skills standard to the Agentic AI Foundation under the Linux Foundation, which it co-founded with Block and OpenAI and to which it already donated the Model Context Protocol. Simon Willison welcomes the move toward vendor-neutral governance. Neutral stewardship lowers the risk of building portable agent skills on a single vendor’s format. Anthropic Open Source Agents Policy"
-      >
-        <div class="story-head">
-          <div class="rank">28</div>
-          <div>
-            <div class="story-meta-line">
-              <div class="source">✍️ Simon Willison</div>
-              <div class="bucket">Industry &amp; Policy</div>
-              <div class="importance importance-medium" aria-label="Medium importance">
-                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                <span>Medium</span>
-              </div>
-            </div>
-            <div class="title"><a href="https://simonwillison.net/2026/Oct/22/donating-agent-skills/" target="_blank" rel="noopener">Donating Agent Skills to the Agentic AI Foundation</a></div>
-          </div>
-        </div>
-        <p class="tldr">Anthropic is donating the Agent Skills standard to the Agentic AI Foundation under the Linux Foundation, which it co-founded with Block and OpenAI and to which it already donated the Model Context Protocol. Simon Willison welcomes the move toward vendor-neutral governance.</p>
-        <p class="why">💡 Why it matters: Neutral stewardship lowers the risk of building portable agent skills on a single vendor’s format.</p>
-        <div class="story-footer">
-          <span class="tag">Anthropic</span>
-          <span class="tag">Open Source</span>
-          <span class="tag">Agents</span>
-          <span class="tag">Policy</span>
-          <a href="https://simonwillison.net/2026/Oct/22/donating-agent-skills/" target="_blank" rel="noopener">Read full story →</a>
-          <span class="date">Oct 22</span>
-        </div>
-      </article>
-      <article
-        class="story-card"
-        data-rank="29"
-        data-published="2026-11-03"
-        data-tags="Mobile,Agents,Developer Experience,AI"
-        data-source="The Verge"
-        data-bucket="Industry &amp; Policy"
-        data-importance="Medium"
-        data-search="Apple starts giving Siri AI access to third-party apps The Verge Industry &amp; Policy Medium In the iOS 27.3 Developer Preview, Apple lets developers integrate Siri AI features in all apps, with personal context, natural-language prompts and on-screen awareness. A new “app skills” feature lets developers combine several tasks into one action. iOS developers can now make their apps reachable by a system-level AI agent, a new distribution surface for mobile software. Mobile Agents Developer Experience AI"
-      >
-        <div class="story-head">
-          <div class="rank">29</div>
-          <div>
-            <div class="story-meta-line">
-              <div class="source">📱 The Verge</div>
-              <div class="bucket">Industry &amp; Policy</div>
-              <div class="importance importance-medium" aria-label="Medium importance">
-                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-                <span>Medium</span>
-              </div>
-            </div>
-            <div class="title"><a href="https://www.theverge.com/tech/1025694/apple-siri-ai-third-party-apps" target="_blank" rel="noopener">Apple starts giving Siri AI access to third-party apps</a></div>
-          </div>
-        </div>
-        <p class="tldr">In the iOS 27.3 Developer Preview, Apple lets developers integrate Siri AI features in all apps, with personal context, natural-language prompts and on-screen awareness. A new “app skills” feature lets developers combine several tasks into one action.</p>
-        <p class="why">💡 Why it matters: iOS developers can now make their apps reachable by a system-level AI agent, a new distribution surface for mobile software.</p>
-        <div class="story-footer">
-          <span class="tag">Mobile</span>
-          <span class="tag">Agents</span>
-          <span class="tag">Developer Experience</span>
-          <span class="tag">AI</span>
-          <a href="https://www.theverge.com/tech/1025694/apple-siri-ai-third-party-apps" target="_blank" rel="noopener">Read full story →</a>
-          <span class="date">Nov 3</span>
-        </div>
-      </article>
-      <article
-        class="story-card"
-        data-rank="30"
+        data-rank="26"
         data-published="2026-11-02"
-        data-tags="Research,Evals,LLMs,Models"
+        data-tags="Research,Evals,LLMs,AI"
         data-source="Import AI"
         data-bucket="Models &amp; Research"
         data-importance="Low"
-        data-search="Import AI 479: Spacewar; low-latency tasks versus LLMs; Genie 4 Import AI Models &amp; Research Low This issue covers Realtime-Bench, which finds LLMs are very bad at low-latency tasks such as playing games or running online auctions. It also discusses Spacewar and DeepMind’s Genie 4. Agents that must act in real time still lag well behind their text-reasoning performance, which limits near-term automation. Research Evals LLMs Models"
+        data-search="Import AI 479: Spacewar; low-latency tasks versus LLMs; Genie 4 Import AI Models &amp; Research Low Jack Clark’s newsletter covers Realtime-Bench, which finds LLMs are very bad at low-latency tasks such as playing games or online auctions, along with Spacewar and Genie 4. The takeaway is that it will be a while before AI systems can handle these real-time jobs for you. Latency-bound tasks remain a weak spot, which should temper expectations for real-time agents. Research Evals LLMs AI"
       >
         <div class="story-head">
-          <div class="rank">30</div>
+          <div class="rank">26</div>
           <div>
             <div class="story-meta-line">
               <div class="source">📬 Import AI</div>
@@ -1440,15 +1303,153 @@
             <div class="title"><a href="https://jack-clark.net/2026/11/02/import-ai-479-spacewar-low-latency-tasks-versus-llms-genie-4/" target="_blank" rel="noopener">Import AI 479: Spacewar; low-latency tasks versus LLMs; Genie 4</a></div>
           </div>
         </div>
-        <p class="tldr">This issue covers Realtime-Bench, which finds LLMs are very bad at low-latency tasks such as playing games or running online auctions. It also discusses Spacewar and DeepMind’s Genie 4.</p>
-        <p class="why">💡 Why it matters: Agents that must act in real time still lag well behind their text-reasoning performance, which limits near-term automation.</p>
+        <p class="tldr">Jack Clark’s newsletter covers Realtime-Bench, which finds LLMs are very bad at low-latency tasks such as playing games or online auctions, along with Spacewar and Genie 4. The takeaway is that it will be a while before AI systems can handle these real-time jobs for you.</p>
+        <p class="why">💡 Why it matters: Latency-bound tasks remain a weak spot, which should temper expectations for real-time agents.</p>
         <div class="story-footer">
           <span class="tag">Research</span>
           <span class="tag">Evals</span>
           <span class="tag">LLMs</span>
-          <span class="tag">Models</span>
+          <span class="tag">AI</span>
           <a href="https://jack-clark.net/2026/11/02/import-ai-479-spacewar-low-latency-tasks-versus-llms-genie-4/" target="_blank" rel="noopener">Read full story →</a>
-          <span class="date">Nov 2</span>
+          <span class="date">Nov 02</span>
+        </div>
+      </article>
+      <article
+        class="story-card"
+        data-rank="27"
+        data-published="2026-11-03"
+        data-tags="Startups,Infrastructure,AI,Cloud"
+        data-source="TechCrunch"
+        data-bucket="Industry &amp; Policy"
+        data-importance="Low"
+        data-search="AI inference startup Fal doubles its valuation to $16B as demand surges TechCrunch Industry &amp; Policy Low Five-year-old inference startup Fal raised a $1.3 billion round led by Bessemer, doubling its valuation to $16 billion. Investor money is flowing to the inference layer, a sign of sustained demand for serving generative models. Startups Infrastructure AI Cloud"
+      >
+        <div class="story-head">
+          <div class="rank">27</div>
+          <div>
+            <div class="story-meta-line">
+              <div class="source">📰 TechCrunch</div>
+              <div class="bucket">Industry &amp; Policy</div>
+              <div class="importance importance-low" aria-label="Low importance">
+                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+                <span>Low</span>
+              </div>
+            </div>
+            <div class="title"><a href="https://techcrunch.com/2026/11/03/ai-inference-startup-fal-doubles-its-valuation-to-16b-as-demand-surges/" target="_blank" rel="noopener">AI inference startup Fal doubles its valuation to $16B as demand surges</a></div>
+          </div>
+        </div>
+        <p class="tldr">Five-year-old inference startup Fal raised a $1.3 billion round led by Bessemer, doubling its valuation to $16 billion.</p>
+        <p class="why">💡 Why it matters: Investor money is flowing to the inference layer, a sign of sustained demand for serving generative models.</p>
+        <div class="story-footer">
+          <span class="tag">Startups</span>
+          <span class="tag">Infrastructure</span>
+          <span class="tag">AI</span>
+          <span class="tag">Cloud</span>
+          <a href="https://techcrunch.com/2026/11/03/ai-inference-startup-fal-doubles-its-valuation-to-16b-as-demand-surges/" target="_blank" rel="noopener">Read full story →</a>
+          <span class="date">Nov 03</span>
+        </div>
+      </article>
+      <article
+        class="story-card"
+        data-rank="28"
+        data-published="2026-11-03"
+        data-tags="Policy,AI"
+        data-source="MIT Technology Review"
+        data-bucket="Industry &amp; Policy"
+        data-importance="Low"
+        data-search="Here’s who is falling in line for Trump’s “Super Intelligence” loyalty test MIT Technology Review Industry &amp; Policy Low At the end of September, President Trump signed an executive order whose single directive was for agencies to rebrand what they called artificial intelligence as “Super Intelligence”. MIT Technology Review’s Algorithm newsletter tracks which companies and groups are going along. Federal terminology and procurement language are shifting, which can affect how vendors position products to government buyers. Policy AI"
+      >
+        <div class="story-head">
+          <div class="rank">28</div>
+          <div>
+            <div class="story-meta-line">
+              <div class="source">🎓 MIT Technology Review</div>
+              <div class="bucket">Industry &amp; Policy</div>
+              <div class="importance importance-low" aria-label="Low importance">
+                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+                <span>Low</span>
+              </div>
+            </div>
+            <div class="title"><a href="https://www.technologyreview.com/2026/11/02/1147932/heres-who-is-falling-in-line-for-trumps-super-intelligence-loyalty-test/" target="_blank" rel="noopener">Here’s who is falling in line for Trump’s “Super Intelligence” loyalty test</a></div>
+          </div>
+        </div>
+        <p class="tldr">At the end of September, President Trump signed an executive order whose single directive was for agencies to rebrand what they called artificial intelligence as “Super Intelligence”. MIT Technology Review’s Algorithm newsletter tracks which companies and groups are going along.</p>
+        <p class="why">💡 Why it matters: Federal terminology and procurement language are shifting, which can affect how vendors position products to government buyers.</p>
+        <div class="story-footer">
+          <span class="tag">Policy</span>
+          <span class="tag">AI</span>
+          <a href="https://www.technologyreview.com/2026/11/02/1147932/heres-who-is-falling-in-line-for-trumps-super-intelligence-loyalty-test/" target="_blank" rel="noopener">Read full story →</a>
+          <span class="date">Nov 03</span>
+        </div>
+      </article>
+      <article
+        class="story-card"
+        data-rank="29"
+        data-published="2026-11-03"
+        data-tags="GitHub,Agents,DevOps,Tools"
+        data-source="GitHub Changelog"
+        data-bucket="AI Coding Tools"
+        data-importance="Low"
+        data-search="Dependabot version updates support Agent Package Manager GitHub Changelog AI Coding Tools Low Dependabot version updates now cover Agent Package Manager (APM), opening pull requests to keep AI agent skills, prompts and instructions current. Agent instructions are becoming versioned dependencies that need the same update hygiene as code. GitHub Agents DevOps Tools"
+      >
+        <div class="story-head">
+          <div class="rank">29</div>
+          <div>
+            <div class="story-meta-line">
+              <div class="source">🐙 GitHub Changelog</div>
+              <div class="bucket">AI Coding Tools</div>
+              <div class="importance importance-low" aria-label="Low importance">
+                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+                <span>Low</span>
+              </div>
+            </div>
+            <div class="title"><a href="https://github.blog/changelog/2026-11-03-dependabot-version-updates-support-agent-package-manager" target="_blank" rel="noopener">Dependabot version updates support Agent Package Manager</a></div>
+          </div>
+        </div>
+        <p class="tldr">Dependabot version updates now cover Agent Package Manager (APM), opening pull requests to keep AI agent skills, prompts and instructions current.</p>
+        <p class="why">💡 Why it matters: Agent instructions are becoming versioned dependencies that need the same update hygiene as code.</p>
+        <div class="story-footer">
+          <span class="tag">GitHub</span>
+          <span class="tag">Agents</span>
+          <span class="tag">DevOps</span>
+          <span class="tag">Tools</span>
+          <a href="https://github.blog/changelog/2026-11-03-dependabot-version-updates-support-agent-package-manager" target="_blank" rel="noopener">Read full story →</a>
+          <span class="date">Nov 03</span>
+        </div>
+      </article>
+      <article
+        class="story-card"
+        data-rank="30"
+        data-published="2026-10-26"
+        data-tags="GitHub,Microsoft,Developer Experience,Productivity"
+        data-source="Microsoft Developer"
+        data-bucket="AI Coding Tools"
+        data-importance="Low"
+        data-search="Tune GitHub Copilot Inline Suggestions with Configurable Eagerness Microsoft Developer AI Coding Tools Low VS Code now lets you choose how proactively GitHub Copilot offers inline suggestions. Developers who find inline completions distracting can dial them down without disabling Copilot. GitHub Microsoft Developer Experience Productivity"
+      >
+        <div class="story-head">
+          <div class="rank">30</div>
+          <div>
+            <div class="story-meta-line">
+              <div class="source">🪟 Microsoft Developer</div>
+              <div class="bucket">AI Coding Tools</div>
+              <div class="importance importance-low" aria-label="Low importance">
+                <span class="importance-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+                <span>Low</span>
+              </div>
+            </div>
+            <div class="title"><a href="https://code.visualstudio.com/blogs/2026/10/27/configurable-eagerness" target="_blank" rel="noopener">Tune GitHub Copilot Inline Suggestions with Configurable Eagerness</a></div>
+          </div>
+        </div>
+        <p class="tldr">VS Code now lets you choose how proactively GitHub Copilot offers inline suggestions.</p>
+        <p class="why">💡 Why it matters: Developers who find inline completions distracting can dial them down without disabling Copilot.</p>
+        <div class="story-footer">
+          <span class="tag">GitHub</span>
+          <span class="tag">Microsoft</span>
+          <span class="tag">Developer Experience</span>
+          <span class="tag">Productivity</span>
+          <a href="https://code.visualstudio.com/blogs/2026/10/27/configurable-eagerness" target="_blank" rel="noopener">Read full story →</a>
+          <span class="date">Oct 26</span>
         </div>
       </article>
     </section>
